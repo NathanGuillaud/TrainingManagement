@@ -1,0 +1,20 @@
+{
+    "extends": "airbnb-base",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "no-console": 0,
+        "no-param-reassign": ["error", {
+            "props": true,
+            "ignorePropertyModificationsFor": ["user", "req"]
+          }]
+    },
+    "env": {
+        "jest": true
+    }
+}
