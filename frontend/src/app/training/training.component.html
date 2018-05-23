@@ -1,0 +1,27 @@
+<h1>Liste des stages  
+  <button class="btn btn-sm btn-success" [hidden]="!isAdmin" [routerLink]="['/trainings/training-create']">Créer</button>
+</h1>
+<table class="table">
+<thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Description</th>
+    <th [hidden]="!isAdmin" scope="col">Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let training of trainings">
+    <th scope="row" >{{ training.id }}</th>
+    <td>{{training.name}}</td>
+    <td>{{training.description}}</td>
+    <td [hidden]="!isAdmin"> 
+      <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>
+      <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+<span>
+<button [routerLink]="['/']" class="btn btn-lg btn-success">Retour</button>
+</span>

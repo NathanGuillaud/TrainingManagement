@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+
+.form-sign {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-control {
+    margin: 5px;
+    margin-left: -2px;
+}
+
+.form-sign .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: -1px;
+  }
+
+.alerting {
+    margin-top: 65px;
+}

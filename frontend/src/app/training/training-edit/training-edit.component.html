@@ -1,0 +1,28 @@
+<form class="form-sign text-center mt-5" name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1>Modification {{ training.id }}</h1>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !name.valid }" name="name" [(ngModel)]="training.name" placeholder="Nom" #name="ngModel" required autofocus />
+    <small *ngIf="f.submitted && !name.valid" class="float-left text-danger">Le nom est obligatoire</small>
+
+    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !description.valid }" name="description" [(ngModel)]="training.description" #description="ngModel" placeholder="Description" required />
+    <small *ngIf="f.submitted && !description.valid" class="float-left text-danger">La description est obligatoire</small>
+
+    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !address.valid }" name="address" [(ngModel)]="training.address" #address="ngModel" placeholder="Adresse" required />
+    <small *ngIf="f.submitted && !address.valid" class="float-left text-danger">L'adresse est obligatoire</small>
+
+    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !city.valid }" name="city" [(ngModel)]="training.city" #city="ngModel" placeholder="Ville" required />
+    <small *ngIf="f.submitted && !city.valid" class="float-left text-danger">La ville est obligatoire</small>
+
+    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }" name="postalCode" [(ngModel)]="training.postalCode" #postalCode="ngModel" placeholder="34000" required />
+    <small *ngIf="f.submitted && !postalCode.valid" class="float-left text-danger">Le code postal est obligatoire</small>
+
+    <div class="mt-5">
+        <span>
+          <button class="btn btn-lg btn-primary" [disabled]="saving" >Mettre à jour</button>
+          <img *ngIf="saving" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </span>
+        <span>
+          <button [routerLink]="['/training']" class="btn btn-lg btn-success">Retour</button>
+        </span>
+      </div>
+</form>
