@@ -1,3 +1,5 @@
+import { SessionComponent } from './session/session.component';
+import { SessionModule } from './session/session.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +38,8 @@ import { AuthenticationService } from './authentication/authentication.service';
     HomeModule,
     LoginModule,
     RegisterModule,
-    TrainingModule
+    TrainingModule,
+    SessionModule
   ],
   providers: [
     AlertService,
@@ -48,6 +51,9 @@ import { AuthenticationService } from './authentication/authentication.service';
       multi: true
     },
     { provide: APP_BASE_HREF, useValue: '/training-app' }
+  ],
+  entryComponents: [
+    SessionComponent
   ],
   bootstrap: [AppComponent]
 })

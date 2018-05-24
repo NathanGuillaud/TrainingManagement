@@ -22,7 +22,6 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard],
         data: { expectedRole: 'ADMIN' }},
     { path: 'register', component: RegisterComponent },
-//
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

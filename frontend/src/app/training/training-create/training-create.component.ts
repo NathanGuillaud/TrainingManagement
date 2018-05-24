@@ -25,7 +25,10 @@ export class TrainingCreateComponent implements OnInit {
         this.saving = true;
         this.trainingService.createTraining(this.training)
             .subscribe(
-              training => this.router.navigate(['/trainings']),
+              training => {
+                this.alertService.success(200, 'Création de stage effectuée.', true);
+                this.router.navigate(['/trainings']);
+              },
               error => {
                 this.alertService.error(error.status, error.error.message);
                 this.saving = false;

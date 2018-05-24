@@ -10,10 +10,12 @@ import { Observable } from 'rxjs/Observable';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn$: Observable<boolean>;
+  isAdmin: boolean;
 
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isAdmin = this.authService.isAdmin();
   }
 }

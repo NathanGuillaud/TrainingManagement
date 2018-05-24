@@ -1,0 +1,23 @@
+<form class="form-session" name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+  <div class="row">
+    <div class="col-md-3">
+      <input class="form-control" type=date [ngClass]="{ 'has-error': f.submitted && !begin.valid }" name="begin" [(ngModel)]="session.begin"
+        #begin="ngModel" placeholder="Début" required />
+        <small *ngIf="f.submitted && !begin.valid" class="float-left text-danger">La date de début est obligatoire</small>
+      </div>
+    <div class="col-md-3">
+      <input class="form-control" type=date [ngClass]="{ 'has-error': f.submitted && !end.valid }" name="end" [(ngModel)]="session.end"
+        #end="ngModel" placeholder="Fin" required />
+        <small *ngIf="f.submitted && !end.valid" class="float-left text-danger">La date de fin est obligatoire</small>
+      </div>
+    <div class="col-md-3">
+      <input class="form-control" type=number [ngClass]="{ 'has-error': f.submitted && !price.valid }" name="price" [(ngModel)]="session.price"
+        #price="ngModel" placeholder="Prix" required />
+        <small *ngIf="f.submitted && !price.valid" class="float-left text-danger">Le prix est obligatoire</small>
+      </div>
+    <div class="col-md-3">
+        <button [disabled]="!f.form.valid || !f.form.dirty" class="mt-2 btn btn-sm btn-primary" type="submit" >Sauver</button>
+        <button class="mt-2 btn btn-sm btn-danger" (click)="remove()">Supprimer</button>
+    </div>
+  </div>
+</form>

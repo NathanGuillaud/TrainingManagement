@@ -1,7 +1,9 @@
 <nav class="navbar navbar-dark bg-primary fixed-top " role="navigation">
   <div class="container">
       <div class="navbar-header">
-          <a class="navbar-brand" [routerLink]="['/']">Application exemple</a>
+          <a class="navbar-brand" [routerLink]="['/']">Menu</a>
+          <a [hidden]="!isAdmin" class="navbar-brand" [routerLink]="['/users']">Utilisateurs</a>
+          <a class="navbar-brand" [routerLink]="['/trainings']">Stages</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">

@@ -16,15 +16,15 @@ export class TrainingService {
   }
 
   deleteTraining(id: number) {
-    return this.http.delete('http://localhost:8080/api/private/trainings/' + id);
+    return this.http.delete('http://localhost:8080/api/admin/private/trainings/' + id);
   }
 
   updateTraining(training: Training) {
-    return this.http.put('http://localhost:8080/api/private/trainings/' + training.id, training);
+    return this.http.put('http://localhost:8080/api/admin/private/trainings/' + training.id, training);
   }
 
   createTraining(training: Training) {
-    return this.http.post('http://localhost:8080/api/private/trainings', training);
+    return this.http.post('http://localhost:8080/api/admin/private/trainings', training);
   }
 
 }
