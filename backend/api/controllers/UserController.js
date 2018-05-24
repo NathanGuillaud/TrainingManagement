@@ -38,6 +38,7 @@ const UserController = () => {
       // Ajout du rôle et création du token
       await user.setAuthorities(roleObj);
       const token = authService().issue({
+        id: user.id,
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
@@ -94,6 +95,7 @@ const UserController = () => {
 
           // Création du token JWT
           const token = authService().issue({
+            id: user.id,
             username: user.username,
             firstname: user.firstname,
             lastname: user.lastname,
