@@ -62,7 +62,7 @@ test('Training | create', async () => {
 
   // création d'un training
   const res2 = await request(api)
-    .post('/api/private/trainings')
+    .post('/api/admin/private/trainings')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -81,6 +81,7 @@ test('Training | create', async () => {
 
   expect(training.id).toBe(res2.body.id);
   expect(training.name).toBe(res2.body.name);
+  // expect(training.postalCode).toBe(res2.body.postalCode);
 
   await training.destroy();
   await user.destroy();
