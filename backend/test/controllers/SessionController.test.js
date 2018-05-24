@@ -30,8 +30,8 @@ beforeAll(async () => {
   });
   // Session pour le getAll
   await Session.create({
-    begin: '2018-02-02 10:00:00',
-    end: '2018-02-02 11:00:00',
+    begin: '2018-02-02',
+    end: '2018-02-02',
     price: '8',
     TrainingId: trainingObj.id,
   });
@@ -92,9 +92,9 @@ test('Session | create', async () => {
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
     .send({
-      begin: '2018-01-01 09:30:00',
-      end: '2018-01-01 12:00:00',
-      price: '7.5',
+      begin: '2018-01-01',
+      end: '2018-01-01',
+      price: 7.5,
       TrainingId: trainingObj.id,
     })
     .expect(200);
@@ -103,8 +103,8 @@ test('Session | create', async () => {
   const session = await Session.findById(res2.body.id);
 
   expect(session.id).toBe(res2.body.id);
-  // expect(session.begin).toBe(res2.body.begin);
-  // expect(session.price).toBe(res2.body.price);
+  expect(session.begin).toBe(res2.body.begin);
+  expect(session.price).toBe(res2.body.price);
 
   await session.destroy();
   await user.destroy();
@@ -153,7 +153,7 @@ test('Session | get all', async () => {
   // vérifier que l'id est le bon
   expect(res2.body[0].id).toBe(1);
   // vérifier que la date de début est la bonne
-  // expect(res2.body[0].begin).toBe('2018-02-02 10:00:00');
+  expect(res2.body[0].begin).toBe('2018-02-02');
   expect(res2.body[0].TrainingId).toBe(1);
 
   await user.destroy();
@@ -218,7 +218,7 @@ test('Session | get all by training id', async () => {
   // vérifier que l'id est le bon
   expect(res3.body[0].id).toBe(1);
   // vérifier que la dta de début est la bonne
-  // expect(res2.body[0].begin).toBe('2018-02-02 10:00:00');
+  expect(res3.body[0].begin).toBe('2018-02-02');
 
   await user.destroy();
 });
