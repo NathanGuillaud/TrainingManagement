@@ -11,6 +11,7 @@ const privateRoutes = {
   // Gestion des enrollments
   'DELETE /enrollments/:id': 'EnrollmentController.remove',
   'POST /users/:userId/courses/:courseId/enrollments': 'EnrollmentController.create',
+  'GET /users/:userId/trainings/:trainingId/enrollments': 'EnrollmentController.getAllByUserIdTrainingId',
 };
 
 module.exports = privateRoutes;

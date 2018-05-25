@@ -103,4 +103,9 @@ export class TrainingComponent implements OnInit {
     this.courseEnabled = false;
     this.container.clear();
   }
+
+  // Récupération du training pour gérer les inscriptions
+  saveTraining(training) {
+    this.trainingService.trainingStorage = training;
+  }
 }

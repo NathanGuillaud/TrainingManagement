@@ -5,6 +5,8 @@ import { Training } from '../model/training';
 @Injectable()
 export class TrainingService {
 
+  public trainingStorage: Training;
+
   constructor(private http: HttpClient) { }
 
   getAllTrainings() {

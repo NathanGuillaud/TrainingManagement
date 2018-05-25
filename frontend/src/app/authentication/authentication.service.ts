@@ -45,6 +45,7 @@ export class AuthenticationService {
                 user.email = decoded.email;
                 user.firstname = decoded.firstname;
                 user.lastname = decoded.lastname;
+                user.id = decoded.id;
                 user.token = receivedToken.token;
 
                 // login successful if there's a jwt token in the response
@@ -88,5 +89,10 @@ export class AuthenticationService {
             } );
         }
         return found;
+    }
+
+    getUserId(): number {
+        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
+        return user.id;
     }
 }

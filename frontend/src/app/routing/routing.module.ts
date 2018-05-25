@@ -32,7 +32,7 @@ const routes: Routes = [
         data: { expectedRole: 'ADMIN' }},
 
     // Enrollments
-    { path: 'trainings/:trainingId/enrollments/enrollment-create', component: EnrollmentComponent },
+    { path: 'enrollments/enrollment-create', component: EnrollmentComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

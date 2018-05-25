@@ -1,6 +1,7 @@
 const Enrollment = require('../models/Enrollment');
 const Course = require('../models/Course');
 const User = require('../models/User');
+// const sequelize = require('../../config/database');
 
 const EnrollmentController = () => {
   // Création d'une inscription
@@ -47,12 +48,46 @@ const EnrollmentController = () => {
     }
   };
 
+  // Liste des inscriptions par utilisateur et par stage
+  // SELECT *
+  // FROM Enrollment
+  // WHERE UserId = userId
+  // AND CourseId IN
+  //                (SELECT Course.id
+  //                FROM Course
+  //                WHERE Course.TrainingId = trainingId)
+  const getAllByUserIdTrainingId = async (req, res) => {
+    const { userId, trainingId } = req.params;
+    try {
+      // const enrollments = sequelize.query(
+      // 'SELECT * FROM Enrollment WHERE UserId = :userId AND CourseId IN
+      // (SELECT Course.id FROM Course WHERE Course.TrainingId = :trainingId)')
+      const enrollments = await Enrollment.findAll({
+        where: {
+          UserId: userId,
+        },
+        include: [{
+          model: Course,
+          where: {
+            TrainingId: trainingId,
+          },
+          attributes: [],
+        }],
+      });
+      return res.status(200).json(enrollments);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+    }
+  };
+
   // Liste des inscriptions
   // TODO
 
   return {
     create,
     remove,
+    getAllByUserIdTrainingId,
   };
 };
 
