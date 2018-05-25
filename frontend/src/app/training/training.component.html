@@ -18,6 +18,7 @@
     <td [hidden]="!isAdmin"> 
       <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>
       <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
+      <!-- <button class="btn btn-sm btn-warning" [routerLink]="['/trainings/{{training.id}}/enrollments/enrollment-create']">S'inscrire</button> -->
       <button class="btn btn-sm btn-success" type="button" [disabled]="sessionEnabled" (click)="loadSessions(training)">Voir les séances</button>
     </td>
   </tr>

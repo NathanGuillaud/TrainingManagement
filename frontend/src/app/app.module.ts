@@ -21,6 +21,8 @@ import { RoutingModule } from './routing/routing.module';
 import { JwtInterceptor } from './authentication/jwt.interceptor';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AuthenticationService } from './authentication/authentication.service';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { EnrollmentModule } from './enrollment/enrollment.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { AuthenticationService } from './authentication/authentication.service';
     LoginModule,
     RegisterModule,
     TrainingModule,
-    SessionModule
+    SessionModule,
+    EnrollmentModule
   ],
   providers: [
     AlertService,

@@ -1,0 +1,17 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>Sessions du stage</h1>
+</div>
+
+<div class="card-deck">
+  <a *ngFor="let enrollment of enrollments" onclick="enroll()" class="card">
+    <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{enrollment.begin}} au {{enrollment.end}}</h5>
+      <p class="card-text">INSERER HORAIRES</p>
+      <p class="card-text">{{enrollment.price | currency:'EUR':'symbol'}}</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"></small>
+    </div>
+  </a>
+</div>
