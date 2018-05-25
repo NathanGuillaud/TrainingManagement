@@ -3,13 +3,13 @@
 </div>
 
 <div class="card-deck">
-  <a *ngFor="let course of courses">
-    <div (click)="enroll(course)" class="card" [ngClass]="{'border-dark': !isSelected, 'border-success': isSelected}">
+  <a *ngFor="let extendedCourse of extendedCourses">
+    <div (click)="enroll(extendedCourse)" class="card" [ngClass]="{'border-dark': !extendedCourse.isSelected, 'border-success': extendedCourse.isSelected}">
       <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{course.begin}} au {{course.end}}</h5>
+        <h5 class="card-title">{{extendedCourse.begin}} au {{extendedCourse.end}}</h5>
         <p class="card-text">INSERER HORAIRES</p>
-        <p class="card-text">{{course.price | currency:'EUR':'symbol'}}</p>
+        <p class="card-text">{{extendedCourse.price | currency:'EUR':'symbol'}}</p>
       </div>
       <div class="card-footer">
         <small class="text-muted"></small>

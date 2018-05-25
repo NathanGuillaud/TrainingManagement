@@ -3,6 +3,7 @@ import { UserService } from './../user/user.service';
 import { User } from './../model/user';
 import { Enrollment } from './../model/enrollment';
 import { Course } from './../model/course';
+import { ExtendedCourse } from './../model/extendedCourse';
 import { CourseService } from './../course/course.service';
 import { AlertService } from './../alert/alert.service';
 import { Training } from './../model/training';
@@ -18,6 +19,7 @@ import { EnrollmentService } from './enrollment.service';
 export class EnrollmentComponent implements OnInit {
   currentUser: User;
   currentTraining: Training;
+  extendedCourses: ExtendedCourse[] = [];
   courses: Course[] = [];
   enrollments: Enrollment[] = [];
   isSelected = false;
@@ -33,19 +35,41 @@ export class EnrollmentComponent implements OnInit {
   ngOnInit() {
     this.currentTraining = this.trainingService.trainingStorage;
     this.loadAllCourses(this.currentTraining);
-    this.loadAllEnrollments(this.currentTraining);
+  }
+
+  checkSelected() {
+    this.extendedCourses.forEach(extendedCourse => {
+      this.enrollments.forEach(enrollment => {
+        if (enrollment.id === extendedCourse.id) {
+          extendedCourse.isSelected = true;
+        }
+      });
+    });
   }
 
   enroll() {
     // changement de la couleur de la card
-    this.isSelected = !this.isSelected;
-    // requête POST
+    // requête POST avec course (et pas extendedCourse)
+    // mettre à jour le isSelected du extendedCourse correspondant
   }
 
   private loadAllCourses(training: Training) {
     this.courseService.getAllCourses(training.id).subscribe(
       results => {
         this.courses = results;
+        this.courses.forEach(course => {
+          this.extendedCourses.push(
+            new ExtendedCourse(
+              course.id,
+              course.begin,
+              course.end,
+              course.price,
+              course.TrainingId,
+              false
+            )
+          );
+        });
+        this.loadAllEnrollments(this.currentTraining);
       },
       error => {
         this.alertService.error(error.status, error.error.message);
@@ -56,7 +80,7 @@ export class EnrollmentComponent implements OnInit {
     this.enrollmentService.getAllEnrollments(this.authenticationService.getUserId(), training.id).subscribe(
       results => {
         this.enrollments = results;
-        console.log(this.enrollments);
+        this.checkSelected();
       },
       error => {
         this.alertService.error(error.status, error.error.message);
