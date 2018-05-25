@@ -1,20 +1,20 @@
 const Enrollment = require('../models/Enrollment');
-const Session = require('../models/Session');
+const Course = require('../models/Course');
 const User = require('../models/User');
 
 const EnrollmentController = () => {
   // Création d'une inscription
   const create = async (req, res) => {
     // req.params = paramètre de l'URL
-    const { userId, sessionId } = req.params;
+    const { userId, courseId } = req.params;
     try {
       await User.findById(userId);
       try {
-        await Session.findById(sessionId);
+        await Course.findById(courseId);
         // Création de l'inscription
         try {
           const enrollment = await Enrollment.create({
-            SessionId: sessionId,
+            CourseId: courseId,
             UserId: userId,
           });
           return res.status(200).json(enrollment);

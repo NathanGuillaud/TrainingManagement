@@ -19,7 +19,7 @@
       <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>
       <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
       <!-- <button class="btn btn-sm btn-warning" [routerLink]="['/trainings/{{training.id}}/enrollments/enrollment-create']">S'inscrire</button> -->
-      <button class="btn btn-sm btn-success" type="button" [disabled]="sessionEnabled" (click)="loadSessions(training)">Voir les séances</button>
+      <button class="btn btn-sm btn-success" type="button" [disabled]="courseEnabled" (click)="loadCourses(training)">Voir les séances</button>
     </td>
   </tr>
 </tbody>
@@ -28,8 +28,8 @@
 <button [routerLink]="['/']" class="btn btn-lg btn-success">Retour</button>
 </span>
 
-<div [hidden]="!sessionEnabled">
-  <h2>Sessions du stage {{ currentTraining.name }} (id {{ currentTraining.id }})
+<div [hidden]="!courseEnabled">
+  <h2>Séances du stage {{ currentTraining.name }} (id {{ currentTraining.id }})
       <button class="btn btn-sm btn-success" type="button" (click)="addComponent(currentTraining, true)">Créer</button>
       <button class="btn btn-sm btn-primary" type="button" (click)="closeComponents()">Fermer</button>
   </h2>

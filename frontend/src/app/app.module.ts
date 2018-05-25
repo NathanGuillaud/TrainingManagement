@@ -1,5 +1,5 @@
-import { SessionComponent } from './session/session.component';
-import { SessionModule } from './session/session.module';
+import { CourseComponent } from './course/course.component';
+import { CourseModule } from './course/course.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -41,7 +41,7 @@ import { EnrollmentModule } from './enrollment/enrollment.module';
     LoginModule,
     RegisterModule,
     TrainingModule,
-    SessionModule,
+    CourseModule,
     EnrollmentModule
   ],
   providers: [
@@ -56,7 +56,7 @@ import { EnrollmentModule } from './enrollment/enrollment.module';
     { provide: APP_BASE_HREF, useValue: '/training-app' }
   ],
   entryComponents: [
-    SessionComponent
+    CourseComponent
   ],
   bootstrap: [AppComponent]
 })

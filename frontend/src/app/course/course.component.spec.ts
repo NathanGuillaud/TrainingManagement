@@ -1,27 +1,27 @@
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { SessionModule } from './session.module';
-import { SessionService } from './session.service';
+import { CourseModule } from './course.module';
+import { CourseService } from './course.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { SessionComponent } from './session.component';
+import { CourseComponent } from './course.component';
 import { AlertModule } from '../alert/alert.module';
 
-describe('SessionComponent', () => {
-  let component: SessionComponent;
-  let fixture: ComponentFixture<SessionComponent>;
+describe('CourseComponent', () => {
+  let component: CourseComponent;
+  let fixture: ComponentFixture<CourseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ],
-      imports: [FormsModule, RouterTestingModule, SessionModule, HttpClientTestingModule, AlertModule]
+      imports: [FormsModule, RouterTestingModule, CourseModule, HttpClientTestingModule, AlertModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SessionComponent);
+    fixture = TestBed.createComponent(CourseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,8 +6,8 @@ export class EnrollmentService {
 
   constructor(private http: HttpClient) { }
 
-  createEnrollment(userId: number, sessionId: number) {
-    return this.http.post('http://localhost:8080/api/private/users/' + userId + '/sessions/' + sessionId, null);
+  createEnrollment(userId: number, courseId: number) {
+    return this.http.post('http://localhost:8080/api/private/users/' + userId + '/courses/' + courseId, null);
   }
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SessionComponent } from './session.component';
-import { SessionService } from './session.service';
+import { CourseComponent } from './course.component';
+import { CourseService } from './course.service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -10,13 +10,13 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [
-    SessionComponent
+    CourseComponent
   ],
   exports: [
-    SessionComponent
+    CourseComponent
   ],
   providers: [
-    SessionService
+    CourseService
   ]
 })
-export class SessionModule { }
+export class CourseModule { }

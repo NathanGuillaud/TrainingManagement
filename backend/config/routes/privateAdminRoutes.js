@@ -7,10 +7,10 @@ const privateAdminRoutes = {
   'DELETE /trainings/:id': 'TrainingController.remove',
   'POST /trainings': 'TrainingController.create',
 
-  // Gestion des sessions
-  'PUT /sessions/:id': 'SessionController.update',
-  'DELETE /sessions/:id': 'SessionController.remove',
-  'POST /trainings/:trainingId/sessions': 'SessionController.create',
+  // Gestion des courses
+  'PUT /courses/:id': 'CourseController.update',
+  'DELETE /courses/:id': 'CourseController.remove',
+  'POST /trainings/:trainingId/courses': 'CourseController.create',
 };
 
 module.exports = privateAdminRoutes;

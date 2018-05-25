@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-// const Session = require('../models/Session');
 
 const sequelize = require('../../config/database');
 
@@ -13,8 +12,5 @@ const Training = sequelize.define('Training', {
   postalCode: Sequelize.INTEGER,
 
 }, { tableName });
-
-// Training.hasMany(Session);
-
 
 module.exports = Training;

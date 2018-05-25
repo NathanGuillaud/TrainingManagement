@@ -1,22 +1,22 @@
-const Session = require('../models/Session');
+const Course = require('../models/Course');
 const Training = require('../models/Training');
 
-const SessionController = () => {
-  // Création d'une session
+const CourseController = () => {
+  // Création d'une course
   const create = async (req, res) => {
     const { trainingId } = req.params;
     try {
       await Training.findById(trainingId);
       const { body } = req;
-      // Création de la session
+      // Création de la course
       try {
-        const session = await Session.create({
+        const course = await Course.create({
           begin: body.begin,
           end: body.end,
           price: body.price,
           TrainingId: trainingId,
         });
-        return res.status(200).json(session);
+        return res.status(200).json(course);
       } catch (err) {
         console.log(err);
         return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
@@ -27,7 +27,7 @@ const SessionController = () => {
     }
   };
 
-  // Modification d'une session
+  // Modification d'une course
   const update = async (req, res) => {
     // Récupération de corps de la requête
     const {
@@ -38,13 +38,13 @@ const SessionController = () => {
     } = req.body;
 
     if (id && begin && end && price) {
-      // Recherche de la session
+      // Recherche de la course
       try {
-        await Session.findById(id);
-        // Session trouvée, on sauvegarde les modifications
-        let session;
+        await Course.findById(id);
+        // Course trouvée, on sauvegarde les modifications
+        let course;
         try {
-          Session.update(
+          Course.update(
             {
               begin,
               end,
@@ -59,12 +59,12 @@ const SessionController = () => {
           return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
         }
         try {
-          session = await Session.findById(id);
+          course = await Course.findById(id);
         } catch (err) {
           console.log(err);
           return res.status(400).json({ message: 'Séance non trouvée après mise à jour.' });
         }
-        return res.status(200).json(session);
+        return res.status(200).json(course);
       } catch (err) {
         console.log(err);
         return res.status(400).json({ message: 'Séance non trouvée.' });
@@ -74,56 +74,56 @@ const SessionController = () => {
     return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
   };
 
-  // Récupération d'une session
+  // Récupération d'une course
   const get = async (req, res) => {
     const { id } = req.params;
     try {
-      const session = await Session.findById(id);
+      const course = await Course.findById(id);
 
-      return res.status(200).json(session);
+      return res.status(200).json(course);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
     }
   };
 
-  // Suppression d'une session
+  // Suppression d'une course
   const remove = async (req, res) => {
     const { id } = req.params;
     try {
-      const session = await Session.destroy({
+      const course = await Course.destroy({
         where: {
           id,
         },
       });
-      return res.status(200).json(session);
+      return res.status(200).json(course);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
     }
   };
 
-  // Liste des sessions
+  // Liste des courses
   const getAll = async (req, res) => {
     try {
-      const sessions = await Session.findAll();
-      return res.status(200).json(sessions);
+      const courses = await Course.findAll();
+      return res.status(200).json(courses);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
     }
   };
 
-  // Liste des sessions par stage
+  // Liste des courses par stage
   const getAllByTrainingId = async (req, res) => {
     const { trainingId } = req.params;
     try {
-      const sessions = await Session.findAll({
+      const courses = await Course.findAll({
         where: {
           TrainingId: trainingId,
         },
       });
-      return res.status(200).json(sessions);
+      return res.status(200).json(courses);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
@@ -140,4 +140,4 @@ const SessionController = () => {
   };
 };
 
-module.exports = SessionController;
+module.exports = CourseController;

@@ -3,14 +3,14 @@ const privateRoutes = {
   'GET /trainings': 'TrainingController.getAll',
   'GET /trainings/:id': 'TrainingController.get',
 
-  // Gestion des sessions
-  'GET /sessions': 'SessionController.getAll',
-  'GET /trainings/:trainingId/sessions': 'SessionController.getAllByTrainingId',
-  'GET /sessions/:id': 'SessionController.get',
+  // Gestion des courses
+  'GET /courses': 'CourseController.getAll',
+  'GET /trainings/:trainingId/courses': 'CourseController.getAllByTrainingId',
+  'GET /courses/:id': 'CourseController.get',
 
   // Gestion des enrollments
   'DELETE /enrollments/:id': 'EnrollmentController.remove',
-  'POST /users/:userId/sessions/:sessionId/enrollments': 'EnrollmentController.create',
+  'POST /users/:userId/courses/:courseId/enrollments': 'EnrollmentController.create',
 };
 
 module.exports = privateRoutes;

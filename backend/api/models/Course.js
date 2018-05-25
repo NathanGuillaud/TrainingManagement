@@ -2,9 +2,9 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../config/database');
 const Training = require('../models/Training');
 
-const tableName = 'session';
+const tableName = 'course';
 
-const Session = sequelize.define('Session', {
+const Course = sequelize.define('Course', {
   begin: {
     type: Sequelize.DATEONLY,
   },
@@ -16,11 +16,11 @@ const Session = sequelize.define('Session', {
   },
 }, { tableName });
 
-Session.belongsTo(Training, {
+Course.belongsTo(Training, {
   foreignKey: {
     allowNull: false,
   },
   onDelete: 'CASCADE',
 });
 
-module.exports = Session;
+module.exports = Course;

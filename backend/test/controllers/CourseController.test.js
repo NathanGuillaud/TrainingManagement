@@ -6,7 +6,7 @@ const {
 const Training = require('../../api/models/Training');
 const Role = require('../../api/models/Role');
 const User = require('../../api/models/User');
-const Session = require('../../api/models/Session');
+const Course = require('../../api/models/Course');
 
 let api;
 
@@ -28,8 +28,8 @@ beforeAll(async () => {
       name: 'TEST NAME2',
     },
   });
-  // Session pour le getAll
-  await Session.create({
+  // Course pour le getAll
+  await Course.create({
     begin: '2018-02-02',
     end: '2018-02-02',
     price: '8',
@@ -45,7 +45,7 @@ afterAll(() => {
   afterAction();
 });
 
-test('Session | create', async () => {
+test('Course | create', async () => {
   let roleObj = new Role();
   // trouver un role admin
   roleObj = await Role.findOne({
@@ -62,7 +62,7 @@ test('Session | create', async () => {
     },
   });
 
-  // création d'un user avec le role admin pour pouvoir créer une session au training
+  // création d'un user avec le role admin pour pouvoir créer une course au training
   const user = await User.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
@@ -84,10 +84,10 @@ test('Session | create', async () => {
 
   expect(res.body.token).toBeTruthy();
 
-  // création d'une session au training
+  // création d'une course au training
   const res2 = await request(api)
   // training 1
-    .post('/api/admin/private/trainings/1/sessions')
+    .post('/api/admin/private/trainings/1/courses')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -100,17 +100,17 @@ test('Session | create', async () => {
     .expect(200);
   expect(res2.body).toBeTruthy();
 
-  const session = await Session.findById(res2.body.id);
+  const course = await Course.findById(res2.body.id);
 
-  expect(session.id).toBe(res2.body.id);
-  expect(session.begin).toBe(res2.body.begin);
-  expect(session.price).toBe(res2.body.price);
+  expect(course.id).toBe(res2.body.id);
+  expect(course.begin).toBe(res2.body.begin);
+  expect(course.price).toBe(res2.body.price);
 
-  await session.destroy();
+  await course.destroy();
   await user.destroy();
 });
 
-test('Session | get all', async () => {
+test('Course | get all', async () => {
   let roleObj = new Role();
 
   roleObj = await Role.findOne({
@@ -140,7 +140,7 @@ test('Session | get all', async () => {
   expect(res.body.token).toBeTruthy();
 
   const res2 = await request(api)
-    .get('/api/private/sessions')
+    .get('/api/private/courses')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -148,7 +148,7 @@ test('Session | get all', async () => {
 
   // vérifier que le corps réponse à la requête de training existe (non vide)
   expect(res2.body).toBeTruthy();
-  // vérifier que la longueur des sessions est bien de 1
+  // vérifier que la longueur des courses est bien de 1
   expect(res2.body.length).toBe(1);
   // vérifier que l'id est le bon
   expect(res2.body[0].id).toBe(1);
@@ -159,7 +159,7 @@ test('Session | get all', async () => {
   await user.destroy();
 });
 
-test('Session | get all by training id', async () => {
+test('Course | get all by training id', async () => {
   let roleObj = new Role();
 
   roleObj = await Role.findOne({
@@ -190,7 +190,7 @@ test('Session | get all by training id', async () => {
 
   const res2 = await request(api)
   // tests avec training d'id 1
-    .post('/api/admin/private/trainings/1/sessions')
+    .post('/api/admin/private/trainings/1/courses')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -205,7 +205,7 @@ test('Session | get all by training id', async () => {
   expect(res2.body).toBeTruthy();
 
   const res3 = await request(api)
-    .get('/api/private/sessions')
+    .get('/api/private/courses')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -213,7 +213,7 @@ test('Session | get all by training id', async () => {
 
   // vérifier que le corps réponse à la requête de training existe (non vide)
   expect(res3.body).toBeTruthy();
-  // vérifier que la longueur des sessions du training est bien de 1
+  // vérifier que la longueur des courses du training est bien de 1
   expect(res3.body.length).toBe(2);
   // vérifier que l'id est le bon
   expect(res3.body[0].id).toBe(1);

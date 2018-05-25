@@ -1,4 +1,4 @@
-import { SessionService } from './../session/session.service';
+import { CourseService } from './../course/course.service';
 import { TrainingCreateComponent } from './training-create/training-create.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,7 @@ import { TrainingEditComponent } from './training-edit/training-edit.component';
   ],
   providers: [
     TrainingService,
-    SessionService
+    CourseService
   ]
 })
 export class TrainingModule { }

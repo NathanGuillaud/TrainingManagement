@@ -1,13 +1,13 @@
-import { SessionComponent } from './../session/session.component';
+import { CourseComponent } from './../course/course.component';
 import { ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { SessionService } from './../session/session.service';
+import { CourseService } from './../course/course.service';
 import { TrainingService } from './training.service';
 import { User } from './../model/user';
 import { AuthenticationService } from './../authentication/authentication.service';
 import { AlertService } from './../alert/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../model/training';
-import { Session } from '../model/session';
+import { Course } from '../model/course';
 
 @Component({
   selector: 'app-training',
@@ -16,12 +16,12 @@ import { Session } from '../model/session';
 })
 export class TrainingComponent implements OnInit {
   trainings: Training[] = [];
-  sessions: Session[] = [];
+  courses: Course[] = [];
   isAdmin: boolean;
-  // pour afficher le training correspondants aux sessions affichées
+  // pour afficher le training correspondants aux courses affichées
   currentTraining: Training = new Training(0, '', '', '', '', 0);
-  // pour afficher ou non les sessions
-  sessionEnabled = false;
+  // pour afficher ou non les courses
+  courseEnabled = false;
 
   @ViewChild('viewContainerRef', { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -29,7 +29,7 @@ export class TrainingComponent implements OnInit {
     private trainingService: TrainingService,
     private alertService: AlertService,
     private authService: AuthenticationService,
-    private sessionService: SessionService,
+    private courseService: CourseService,
     private resolver: ComponentFactoryResolver
   ) { }
 
@@ -53,11 +53,11 @@ export class TrainingComponent implements OnInit {
     });
   }
 
-  // Call API to load sessions and then add dynamic components
-  private loadAllSessions(training: Training) {
-    this.sessionService.getAllSessions(training.id).subscribe(
+  // Call API to load courses and then add dynamic components
+  private loadAllCourses(training: Training) {
+    this.courseService.getAllCourses(training.id).subscribe(
       results => {
-        this.sessions = results;
+        this.courses = results;
         // Add dynamic component
         this.addComponent(training);
       },
@@ -67,40 +67,40 @@ export class TrainingComponent implements OnInit {
   }
 
   // Load existing data
-  loadSessions(training) {
-    this.sessionEnabled = true;
+  loadCourses(training) {
+    this.courseEnabled = true;
     this.currentTraining.id = training.id;
     this.currentTraining.name = training.name;
 
-    this.loadAllSessions(training);
+    this.loadAllCourses(training);
   }
 
   // Add dynamic component
   addComponent(training, newItem?) {
     let component;
-    let sessionComponent;
+    let courseComponent;
 
-    // New item means we already load existing sessions
-    // and we just want to create a new session
-    if (this.sessions.length === 0 || newItem) {
-      component = this.resolver.resolveComponentFactory(SessionComponent);
-      sessionComponent = this.container.createComponent(component);
-      sessionComponent.instance.currentTraining = this.currentTraining;
-      // sessionComponent.instance.session = new Session(0, '', '', 0, 0);
-      sessionComponent.instance.refChild = sessionComponent;
+    // New item means we already load existing courses
+    // and we just want to create a new course
+    if (this.courses.length === 0 || newItem) {
+      component = this.resolver.resolveComponentFactory(CourseComponent);
+      courseComponent = this.container.createComponent(component);
+      courseComponent.instance.currentTraining = this.currentTraining;
+      // courseComponent.instance.course = new Course(0, '', '', 0, 0);
+      courseComponent.instance.refChild = courseComponent;
     } else {
-      this.sessions.forEach(session => {
-        component = this.resolver.resolveComponentFactory(SessionComponent);
-        sessionComponent = this.container.createComponent(component);
-        sessionComponent.instance.refChild = sessionComponent;
-        sessionComponent.instance.session = session;
+      this.courses.forEach(course => {
+        component = this.resolver.resolveComponentFactory(CourseComponent);
+        courseComponent = this.container.createComponent(component);
+        courseComponent.instance.refChild = courseComponent;
+        courseComponent.instance.course = course;
      });
     }
   }
 
-  // Sessions component is closed (hidden)
+  // Courses component is closed (hidden)
   closeComponents() {
-    this.sessionEnabled = false;
+    this.courseEnabled = false;
     this.container.clear();
   }
 }

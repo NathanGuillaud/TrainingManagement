@@ -1,4 +1,4 @@
-export class Session {
+export class Course {
     constructor (
         public id: number,
         public begin: string,
