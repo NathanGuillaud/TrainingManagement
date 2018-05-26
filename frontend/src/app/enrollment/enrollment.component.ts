@@ -121,7 +121,7 @@ export class EnrollmentComponent implements OnInit {
   }
 
   private loadAllEnrollments(training: Training) {
-    this.enrollmentService.getAllEnrollments(this.authenticationService.getUserId(), training.id).subscribe(
+    this.enrollmentService.getAllEnrollmentsByUserIdTrainingId(this.authenticationService.getUserId(), training.id).subscribe(
       results => {
         this.enrollments = results;
         this.checkSelected();

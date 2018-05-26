@@ -11,12 +11,16 @@ export class EnrollmentService {
     return this.http.post('http://localhost:8080/api/private/users/' + userId + '/courses/' + courseId + '/enrollments', null);
   }
 
-  getAllEnrollments(userId: number, trainingId: number) {
+  getAllEnrollmentsByUserIdTrainingId(userId: number, trainingId: number) {
     return this.http.get<Enrollment[]>('http://localhost:8080/api/private/users/' + userId + '/trainings/' + trainingId + '/enrollments');
   }
 
   deleteEnrollment(enrollmentId: number) {
     return this.http.delete('http://localhost:8080/api/private/enrollments/' + enrollmentId);
+  }
+
+  getAllEnrollmentsByUserId(userId: number) {
+    return this.http.get<Enrollment[]>('http://localhost:8080/api/private/users/' + userId + '/enrollments');
   }
 
 }

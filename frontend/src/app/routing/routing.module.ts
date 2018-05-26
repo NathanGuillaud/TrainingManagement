@@ -1,3 +1,4 @@
+import { EnrollmentListComponent } from './../enrollment/enrollment-list/enrollment-list.component';
 import { RegisterComponent } from './../register/register.component';
 import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { NgModule } from '@angular/core';
@@ -33,6 +34,7 @@ const routes: Routes = [
 
     // Enrollments
     { path: 'enrollments/enrollment-create', component: EnrollmentComponent },
+    { path: 'enrollments/enrollment-list', component: EnrollmentListComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

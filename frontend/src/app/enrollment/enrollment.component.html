@@ -7,7 +7,7 @@
     <div (click)="enroll(extendedCourse)" class="card" [ngClass]="{'border-dark': !extendedCourse.isSelected, 'border-success': extendedCourse.isSelected}">
       <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{extendedCourse.begin}} au {{extendedCourse.end}}</h5>
+        <h5 class="card-title">du {{extendedCourse.begin}} au {{extendedCourse.end}}</h5>
         <p class="card-text">INSERER HORAIRES</p>
         <p class="card-text">{{extendedCourse.price | currency:'EUR':'symbol'}}</p>
       </div>

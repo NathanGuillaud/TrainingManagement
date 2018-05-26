@@ -1,0 +1,20 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>Vos inscriptions</h1>
+</div>
+
+<div class="card-deck">
+  <a *ngFor="let enrollment of enrollments">
+    <div class="card">
+      <h2>Stage {{enrollment.Course.TrainingId}}</h2>
+      <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">du {{enrollment.Course.begin}} au {{enrollment.Course.end}}</h5>
+        <p class="card-text">INSERER HORAIRES</p>
+        <p class="card-text">{{enrollment.Course.price | currency:'EUR':'symbol'}}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"></small>
+      </div>
+    </div>
+  </a>
+</div>

@@ -2,16 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EnrollmentComponent } from './enrollment.component';
 import { EnrollmentService } from './enrollment.service';
+import { EnrollmentListComponent } from './enrollment-list/enrollment-list.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    EnrollmentComponent
+    EnrollmentComponent,
+    EnrollmentListComponent
   ],
   exports: [
-    EnrollmentComponent
+    EnrollmentComponent,
+    EnrollmentListComponent
   ],
   providers: [
     EnrollmentService
