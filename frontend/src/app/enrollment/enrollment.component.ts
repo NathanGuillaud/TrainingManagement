@@ -22,7 +22,9 @@ export class EnrollmentComponent implements OnInit {
   extendedCourses: ExtendedCourse[] = [];
   courses: Course[] = [];
   enrollments: Enrollment[] = [];
-  isSelected = false;
+  currentCourse: Course;
+  currentEnrollment: Enrollment;
+  enrollment: any = {};
 
   constructor(
     private enrollmentService: EnrollmentService,
@@ -38,19 +40,61 @@ export class EnrollmentComponent implements OnInit {
   }
 
   checkSelected() {
+    // Pour savoir quelles sont les séances pour laquelle il y a une inscription (pour l'afficher en vert)
     this.extendedCourses.forEach(extendedCourse => {
       this.enrollments.forEach(enrollment => {
-        if (enrollment.id === extendedCourse.id) {
+        if (enrollment.CourseId === extendedCourse.id) {
           extendedCourse.isSelected = true;
         }
       });
     });
   }
 
-  enroll() {
+  enroll(extendedCourse: ExtendedCourse) {
     // changement de la couleur de la card
-    // requête POST avec course (et pas extendedCourse)
-    // mettre à jour le isSelected du extendedCourse correspondant
+    // S'il existe déjà une inscription pour cette séance, on récupère l'inscription, puis on la supprime
+    if (extendedCourse.isSelected) {
+      this.enrollments.forEach(enrollment => {
+        if (enrollment.CourseId === extendedCourse.id) {
+          this.currentEnrollment = enrollment;
+        }
+      });
+      this.enrollmentService.deleteEnrollment(this.currentEnrollment.id)
+        .subscribe(
+          enrollment => {
+            // set success message and pass true paramater to persist the message after redirecting to the login page
+            this.alertService.success(200, 'Suppression de l\'inscription effectuée.', true);
+            this.enrollment = enrollment;
+            // mettre à jour le isSelected du extendedCourse correspondant
+            extendedCourse.isSelected = false;
+            // On rafraichit la liste des inscriptions
+            this.loadAllEnrollments(this.currentTraining);
+          },
+          error => {
+            this.alertService.error(error.status, error.error.message);
+          });
+    } else {
+      // S'il n'existe pas d'inscription pour la séance cliquée, on créé cette inscription
+      this.courses.forEach(course => {
+        if (course.id === extendedCourse.id) {
+          this.currentCourse = course;
+        }
+      });
+      this.enrollmentService.createEnrollment(this.authenticationService.getUserId(), this.currentCourse.id)
+        .subscribe(
+          enrollment => {
+            // set success message and pass true paramater to persist the message after redirecting to the login page
+            this.alertService.success(200, 'Création de l\'inscription effectuée.', true);
+            this.enrollment = enrollment;
+            // mettre à jour le isSelected du extendedCourse correspondant
+            extendedCourse.isSelected = true;
+            // On rafraichit la liste des inscriptions
+            this.loadAllEnrollments(this.currentTraining);
+          },
+          error => {
+            this.alertService.error(error.status, error.error.message);
+          });
+    }
   }
 
   private loadAllCourses(training: Training) {
