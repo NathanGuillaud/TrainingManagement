@@ -32,21 +32,21 @@
 </span>
 
 <div [hidden]="!courseEnabled">
-  <h2>Séances du stage {{ currentTraining.name }} (id {{ currentTraining.id }})
+  <h2>Séances du stage {{ currentTraining.name }}
     <button class="btn btn-sm btn-success" type="button" (click)="addComponent(currentTraining, true)">Créer</button>
     <button class="btn btn-sm btn-primary" type="button" (click)="closeComponents()">Fermer</button>
   </h2>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h4>Jour</h4>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h4>Début</h4>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h4>Fin</h4>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h4>Prix</h4>
     </div>
   </div>

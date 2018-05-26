@@ -1,28 +1,28 @@
 <form class="form-course" name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <input class="form-control" type=date [ngClass]="{ 'has-error': f.submitted && !day.valid }" name="day" [(ngModel)]="course.day"
         #day="ngModel" placeholder="Jour" required />
-        <small *ngIf="f.submitted && !day.valid" class="float-left text-danger">La date de début est obligatoire</small>
-      </div>
-      <div class="col-md-3">
-        <input class="form-control" type=time [ngClass]="{ 'has-error': f.submitted && !begin.valid }" name="begin" [(ngModel)]="course.begin"
-          #begin="ngModel" placeholder="Début" required />
-          <small *ngIf="f.submitted && !begin.valid" class="float-left text-danger">L'horaire de début est obligatoire</small>
-        </div>
-    <div class="col-md-3">
+      <small *ngIf="f.submitted && !day.valid" class="float-left text-danger">La date de début est obligatoire</small>
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" type=time [ngClass]="{ 'has-error': f.submitted && !begin.valid }" name="begin" [(ngModel)]="course.begin"
+        #begin="ngModel" placeholder="Début" required />
+      <small *ngIf="f.submitted && !begin.valid" class="float-left text-danger">L'horaire de début est obligatoire</small>
+    </div>
+    <div class="col-md-2">
       <input class="form-control" type=time [ngClass]="{ 'has-error': f.submitted && !end.valid }" name="end" [(ngModel)]="course.end"
         #end="ngModel" placeholder="Fin" required />
-        <small *ngIf="f.submitted && !end.valid" class="float-left text-danger">L'horaire de fin est obligatoire</small>
-      </div>
-    <div class="col-md-3">
+      <small *ngIf="f.submitted && !end.valid" class="float-left text-danger">L'horaire de fin est obligatoire</small>
+    </div>
+    <div class="col-md-2">
       <input class="form-control" type=number [ngClass]="{ 'has-error': f.submitted && !price.valid }" name="price" [(ngModel)]="course.price"
         #price="ngModel" placeholder="Prix" required />
-        <small *ngIf="f.submitted && !price.valid" class="float-left text-danger">Le prix est obligatoire</small>
-      </div>
-    <div class="col-md-3">
-        <button [disabled]="!f.form.valid || !f.form.dirty" class="mt-2 btn btn-sm btn-primary" type="submit" >Sauver</button>
-        <button class="mt-2 btn btn-sm btn-danger" (click)="remove()">Supprimer</button>
+      <small *ngIf="f.submitted && !price.valid" class="float-left text-danger">Le prix est obligatoire</small>
+    </div>
+    <div class="col-md-2">
+      <button [disabled]="!f.form.valid || !f.form.dirty" class="mt-2 btn btn-sm btn-primary" type="submit">Sauver</button>
+      <button class="mt-2 btn btn-sm btn-danger" (click)="remove()">Supprimer</button>
     </div>
   </div>
 </form>
