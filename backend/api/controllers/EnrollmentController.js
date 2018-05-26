@@ -87,6 +87,7 @@ const EnrollmentController = () => {
         include: [{
           model: Course,
         }],
+        order: [[{ model: Course }, 'TrainingId', 'ASC']],
       });
       return res.status(200).json(enrollments);
     } catch (err) {

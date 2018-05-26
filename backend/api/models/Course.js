@@ -5,11 +5,14 @@ const Training = require('../models/Training');
 const tableName = 'course';
 
 const Course = sequelize.define('Course', {
-  begin: {
+  day: {
     type: Sequelize.DATEONLY,
   },
+  begin: {
+    type: Sequelize.TIME,
+  },
   end: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.TIME,
   },
   price: {
     type: Sequelize.FLOAT,

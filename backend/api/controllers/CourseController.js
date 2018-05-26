@@ -11,6 +11,7 @@ const CourseController = () => {
       // Création de la course
       try {
         const course = await Course.create({
+          day: body.day,
           begin: body.begin,
           end: body.end,
           price: body.price,
@@ -32,12 +33,13 @@ const CourseController = () => {
     // Récupération de corps de la requête
     const {
       id,
+      day,
       begin,
       end,
       price,
     } = req.body;
 
-    if (id && begin && end && price) {
+    if (id && day && begin && end && price) {
       // Recherche de la course
       try {
         await Course.findById(id);
@@ -46,6 +48,7 @@ const CourseController = () => {
         try {
           Course.update(
             {
+              day,
               begin,
               end,
               price,

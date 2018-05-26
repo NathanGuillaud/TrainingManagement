@@ -12,7 +12,7 @@
     <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !city.valid }" name="city" [(ngModel)]="training.city" #city="ngModel" placeholder="Ville" required />
     <small *ngIf="f.submitted && !city.valid" class="float-left text-danger">La ville est obligatoire</small>
 
-    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }" name="postalCode" [(ngModel)]="training.postalCode" #postalCode="ngModel" placeholder="34000" required />
+    <input class="form-control" type=text [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }" name="postalCode" [(ngModel)]="training.postalCode" #postalCode="ngModel" placeholder="Code postal" required />
     <small *ngIf="f.submitted && !postalCode.valid" class="float-left text-danger">Le code postal est obligatoire</small>
 
     <div class="mt-5">

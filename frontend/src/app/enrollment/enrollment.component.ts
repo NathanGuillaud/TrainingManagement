@@ -105,6 +105,7 @@ export class EnrollmentComponent implements OnInit {
           this.extendedCourses.push(
             new ExtendedCourse(
               course.id,
+              course.day,
               course.begin,
               course.end,
               course.price,

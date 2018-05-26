@@ -34,14 +34,16 @@ beforeAll(async () => {
   });
   // Course pour le getAll
   course1 = await Course.create({
-    begin: '2018-02-02',
-    end: '2018-02-02',
+    day: '2018-02-02',
+    begin: '09:30',
+    end: '12:00',
     price: 8,
     TrainingId: trainingObj.id,
   });
   course2 = await Course.create({
-    begin: '2018-02-03',
-    end: '2018-02-03',
+    day: '2018-02-03',
+    begin: '13:30',
+    end: '17:00',
     price: 9,
     TrainingId: trainingObj.id,
   });
@@ -89,8 +91,7 @@ test('Enrollment | create', async () => {
   // trouver la course
   courseObj = await Course.findOne({
     where: {
-      begin: '2018-02-02',
-      end: '2018-02-02',
+      day: '2018-02-02',
       TrainingId: trainingObj.id,
     },
   });

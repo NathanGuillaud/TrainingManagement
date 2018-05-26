@@ -4,12 +4,12 @@
 
 <div class="card-deck">
   <a *ngFor="let enrollment of enrollments">
-    <div class="card">
+    <div class="card mb-3">
       <h2>Stage {{enrollment.Course.TrainingId}}</h2>
       <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">du {{enrollment.Course.begin}} au {{enrollment.Course.end}}</h5>
-        <p class="card-text">INSERER HORAIRES</p>
+        <h5 class="card-title">{{enrollment.Course.day}}</h5>
+        <p class="card-text">de {{enrollment.Course.begin}} à {{enrollment.Course.end}}</p>
         <p class="card-text">{{enrollment.Course.price | currency:'EUR':'symbol'}}</p>
       </div>
       <div class="card-footer">
