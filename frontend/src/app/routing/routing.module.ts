@@ -17,36 +17,52 @@ const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthenticationGuard] },
 
     // Login
-    { path: 'login', component: LoginComponent},
+    { path: 'login', component: LoginComponent },
 
     // Register
     { path: 'register', component: RegisterComponent },
 
     // Trainings
     { path: 'trainings', component: TrainingComponent, canActivate: [AuthenticationGuard] },
-    { path: 'trainings/training-edit/:id',
+    {
+        path: 'trainings/training-edit/:id',
         component: TrainingEditComponent,
         canActivate: [AuthenticationGuard],
-        data: { expectedRole: 'ADMIN' }  },
-    { path: 'trainings/training-create',
+        data: { expectedRole: 'ADMIN' }
+    },
+    {
+        path: 'trainings/training-create',
         component: TrainingCreateComponent,
         canActivate: [AuthenticationGuard],
-        data: { expectedRole: 'ADMIN' }},
+        data: { expectedRole: 'ADMIN' }
+    },
 
     // Enrollments
-    { path: 'enrollments/enrollment-create', component: EnrollmentComponent },
-    { path: 'enrollments/enrollment-list', component: EnrollmentListComponent },
+    {
+        path: 'enrollments/enrollment-create',
+        component: EnrollmentComponent,
+        canActivate: [AuthenticationGuard],
+    },
+    {
+        path: 'enrollments/enrollment-list',
+        component: EnrollmentListComponent,
+        canActivate: [AuthenticationGuard],
+    },
 
     // Invoices
-    { path: 'invoices', component: InvoiceComponent },
+    {
+        path: 'invoices',
+        component: InvoiceComponent,
+        canActivate: [AuthenticationGuard],
+    },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
 export class RoutingModule { }

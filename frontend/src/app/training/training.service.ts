@@ -14,7 +14,7 @@ export class TrainingService {
   }
 
   getTraining(id: number) {
-    return this.http.get<Training[]>('http://localhost:8080/api/private/trainings/' + id);
+    return this.http.get<Training>('http://localhost:8080/api/private/trainings/' + id);
   }
 
   deleteTraining(id: number) {
