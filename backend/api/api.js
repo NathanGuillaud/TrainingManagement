@@ -1,6 +1,7 @@
 // Swagger
-var swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
+
 const swaggerDocument = YAML.load('./api/swagger/swagger.yaml');
 
 // Third-pary librairies
