@@ -35,6 +35,8 @@ export class EnrollmentListComponent implements OnInit {
     this.enrollmentService.getAllEnrollmentsByUserId(this.authenticationService.getUserId()).subscribe(
       results => {
         this.enrollments = results;
+        // this.getAllTrainingId(this.enrollments);
+        console.log(this.enrollments[0]['Course'].TrainingId);
         // if (results.length > 0) {
         //   this.currentEnrollmentId = results[0].Course.TrainingId;
         //   this.allTrainingId.push(this.currentEnrollmentId);
@@ -52,7 +54,7 @@ export class EnrollmentListComponent implements OnInit {
       });
   }
 
-  // private getAllTrainingId(enrollments: Enrollment[]): number[] {
+  // private getAllTrainingId(enrollments: Enrollment[]) {
   //   if (enrollments.length > 0) {
   //     this.currentEnrollmentId = enrollments[0].Course.TrainingId;
   //     this.allTrainingId.push(this.currentEnrollmentId);
@@ -80,7 +82,7 @@ export class EnrollmentListComponent implements OnInit {
   //     error => {
   //       this.alertService.error(error.status, error.error.message);
   //     });
-  //   if (a === 'undefined') { console.log('PAS DEFINI PUTAIN'); }
+  //   if (a === 'undefined') { console.log('PAS DEFINI'); }
   //   console.log('FIN REQUETE');
   //   console.log(a);
   //   return a;

@@ -1,3 +1,8 @@
+// Swagger
+var swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./api/swagger/swagger.yaml');
+
 // Third-pary librairies
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -22,6 +27,9 @@ const mappedOpenRoutes = mapRoutes(config.publicRoutes, 'api/controllers/');
 const mappedAuthRoutes = mapRoutes(config.privateRoutes, 'api/controllers/');
 const mappedAuthAdminRoutes = mapRoutes(config.privateAdminRoutes, 'api/controllers/');
 const databaseHandler = dbService(environment, true).start();
+
+// Utilisation de swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Cross origin requests (CORS)
 app.use(cors());

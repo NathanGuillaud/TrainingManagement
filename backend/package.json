@@ -47,7 +47,9 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.0",
+    "swagger-ui-express": "^3.0.9",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "cross-env": "^5.1.4",

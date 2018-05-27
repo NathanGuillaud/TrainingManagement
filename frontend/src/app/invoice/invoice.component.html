@@ -1,0 +1,20 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>Vos Factures
+    <button [routerLink]="['/']" class="btn btn-lg btn-success">Retour</button>
+  </h1>
+</div>
+
+<div class="card-deck">
+  <a *ngFor="let invoice of invoices">
+    <div class="card mb-3">
+      <h2>Stage {{invoice.Training.name}}</h2>
+      <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{invoice.price | currency:'EUR':'symbol'}}</h5>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"></small>
+      </div>
+    </div>
+  </a>
+</div>

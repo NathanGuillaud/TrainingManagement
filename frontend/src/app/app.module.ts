@@ -23,6 +23,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AuthenticationService } from './authentication/authentication.service';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { EnrollmentModule } from './enrollment/enrollment.module';
+import { InvoiceModule } from './invoice/invoice.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EnrollmentModule } from './enrollment/enrollment.module';
     RegisterModule,
     TrainingModule,
     CourseModule,
-    EnrollmentModule
+    EnrollmentModule,
+    InvoiceModule
   ],
   providers: [
     AlertService,

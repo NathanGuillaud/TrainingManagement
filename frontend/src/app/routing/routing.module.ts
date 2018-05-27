@@ -10,6 +10,7 @@ import { TrainingComponent } from '../training/training.component';
 import { TrainingEditComponent } from '../training/training-edit/training-edit.component';
 import { TrainingCreateComponent } from '../training/training-create/training-create.component';
 import { EnrollmentComponent } from '../enrollment/enrollment.component';
+import { InvoiceComponent } from '../invoice/invoice.component';
 
 const routes: Routes = [
     // Home
@@ -35,6 +36,9 @@ const routes: Routes = [
     // Enrollments
     { path: 'enrollments/enrollment-create', component: EnrollmentComponent },
     { path: 'enrollments/enrollment-list', component: EnrollmentListComponent },
+
+    // Invoices
+    { path: 'invoices', component: InvoiceComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

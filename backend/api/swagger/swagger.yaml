@@ -1,0 +1,364 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Training Management"
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /admin/private/users:
+    get:
+      summary: List all users
+      security:
+        - token: []
+      tags:
+        - users
+      responses:
+        '200':
+          description: An array of users
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Users"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /public/signup:
+    post:
+      summary: Register a user
+      security: []   # No security
+      tags:
+        - users
+      requestBody:
+        description: User details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: Null response
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /public/auth:
+    post:
+      summary: Log to the application
+      tags:
+        - users
+      requestBody:
+        description: User credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCredentials'
+      responses:
+        '200':
+          description: Login successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/trainings:
+    get:
+      summary: List all trainings
+      security:
+        - token: []
+      tags:
+        - trainings
+      responses:
+        '200':
+          description: An array of trainings
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Trainings"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/private/trainings:
+    post:
+      summary: Create a training
+      security:
+        - token: []
+      tags:
+        - trainings
+      requestBody:
+        description: Training details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTraining'
+      responses:
+        '200':
+          description: Training sucessfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Training"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/trainings/{trainingId} :
+    get:
+      summary: Get a training
+      security:
+        - token: []
+      tags:
+        - trainings
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Training sucessfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Training"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/private/trainings/{trainingId} :
+    put:
+      summary: Update a training
+      security:
+        - token: []
+      tags:
+        - trainings
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Training details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTraining'
+      responses:
+        '200':
+          description: Training sucessfully updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Training"
+        '400':
+          description: Training not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a training
+      security:
+        - token: []
+      tags:
+        - trainings
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Training sucessfully delete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Training"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  securitySchemes:
+    token:
+      description: "JWT authorization"
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: JWT
+  security:
+    - token: ''
+  schemas:
+    User:
+      required:
+        - id
+        - username
+        - firstname
+        - lastname
+        - email
+        - enabled
+        - createdAt
+        - modifiedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+    NewUser:
+      required:
+        - username
+        - firstname
+        - lastname
+        - email
+      properties:
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    Token:
+      required:
+        - token
+      properties:
+        token:
+          type: string        
+    UserCredentials:
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string   
+    Training:
+      required:
+        - id
+        - name
+        - description
+        - address
+        - city
+        - postalCode
+        - createdAt
+        - modifiedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string  
+        addresse:
+          type: string  
+        city:
+          type: string  
+        postalCode:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+    NewTraining:
+      required:
+        - name
+        - description
+        - address
+        - city
+        - postalCode
+      properties:
+        name:
+          type: string
+        description:
+          type: string  
+        address:
+          type: string  
+        city:
+          type: string  
+        postalCode:
+          type: string
+    Trainings:
+      type: array
+      items:
+        $ref: "#/components/schemas/Training"
