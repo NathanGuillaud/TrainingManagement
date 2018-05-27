@@ -25,9 +25,9 @@ const TrainingController = () => {
 
   // Modification d'un exemple
   const update = async (req, res) => {
+    const { id } = req.params;
     // Récupération de corps de la requête
     const {
-      id,
       name,
       description,
       address,

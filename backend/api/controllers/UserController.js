@@ -35,18 +35,10 @@ const UserController = () => {
         password: body.password,
         enabled: true,
       });
-      // Ajout du rôle et création du token
+      // Ajout du rôle
       await user.setAuthorities(roleObj);
-      const token = authService().issue({
-        id: user.id,
-        username: user.username,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        roles: [roleObj.name],
-      });
 
-      return res.status(200).json({ token, user });
+      return res.status(200).json({ user });
     } catch (err) {
       console.log(err);
       // L'utilisateur existe déjà
