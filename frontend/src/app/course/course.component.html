@@ -1,6 +1,6 @@
 <form class="form-course" name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <input class="form-control" type=date [ngClass]="{ 'has-error': f.submitted && !day.valid }" name="day" [(ngModel)]="course.day"
         #day="ngModel" placeholder="Jour" required />
       <small *ngIf="f.submitted && !day.valid" class="float-left text-danger">La date de début est obligatoire</small>

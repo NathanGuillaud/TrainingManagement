@@ -7,7 +7,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCourses(trainingId) {
+  getAllCourses(trainingId: number) {
     return this.http.get<Course[]>('http://localhost:8080/api/private/trainings/' + trainingId + '/courses');
   }
 
@@ -19,7 +19,7 @@ export class CourseService {
     return this.http.put('http://localhost:8080/api/admin/private/courses/' + course.id, course);
   }
 
-  createCourse(trainingId, course: Course) {
+  createCourse(trainingId: number, course: Course) {
     return this.http.post('http://localhost:8080/api/admin/private/trainings/' + trainingId + '/courses', course);
   }
 

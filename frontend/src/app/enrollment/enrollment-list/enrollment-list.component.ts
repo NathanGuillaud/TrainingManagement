@@ -2,9 +2,6 @@ import { AuthenticationService } from './../../authentication/authentication.ser
 import { UserService } from './../../user/user.service';
 import { User } from './../../model/user';
 import { Enrollment } from './../../model/enrollment';
-import { Course } from './../../model/course';
-import { ExtendedCourse } from './../../model/extendedCourse';
-import { CourseService } from './../../course/course.service';
 import { AlertService } from './../../alert/alert.service';
 import { Training } from './../../model/training';
 import { TrainingService } from './../../training/training.service';
@@ -26,10 +23,12 @@ export class EnrollmentListComponent implements OnInit {
     private enrollmentService: EnrollmentService,
     private alertService: AlertService,
     private authenticationService: AuthenticationService,
+    private trainingService: TrainingService,
   ) { }
 
   ngOnInit() {
     this.loadAllEnrollments();
+    // console.log(this.getTrainingNameById(1));
   }
 
   private loadAllEnrollments() {
@@ -66,5 +65,31 @@ export class EnrollmentListComponent implements OnInit {
   //     console.log(this.allTrainingId);
   //     return this.allTrainingId;
   //   }
+  // }
+
+  // private getTrainingNameById(trainingId: number): string {
+  //   let a: string;
+  //   this.trainingService.getTraining(trainingId).subscribe(
+  //     training => {
+  //       this.currentTraining = training;
+  //       a = this.currentTraining.name;
+  //       console.log('DANS REQUETE');
+  //       console.log(a);
+  //       // this.getTrainingName();
+  //     },
+  //     error => {
+  //       this.alertService.error(error.status, error.error.message);
+  //     });
+  //   if (a === 'undefined') { console.log('PAS DEFINI PUTAIN'); }
+  //   console.log('FIN REQUETE');
+  //   console.log(a);
+  //   return a;
+  // }
+
+  // utilisée pour getTrainingById juste après la requête pour renvoyer dans le HTML
+  // private getTrainingName(): string {
+  //   const res = this.currentTraining.name;
+  //   console.log(res);
+  //   return res;
   // }
 }

@@ -13,6 +13,9 @@ const privateRoutes = {
   'POST /users/:userId/courses/:courseId/enrollments': 'EnrollmentController.create',
   'GET /users/:userId/trainings/:trainingId/enrollments': 'EnrollmentController.getAllByUserIdTrainingId',
   'GET /users/:userId/enrollments': 'EnrollmentController.getAllByUserId',
+
+  // Gestion des invoices
+  'GET /users/:userId/invoices': 'InvoiceController.getAllByUserId',
 };
 
 module.exports = privateRoutes;

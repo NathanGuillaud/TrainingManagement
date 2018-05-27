@@ -239,6 +239,4 @@ test('Enrollment | get all by user id', async () => {
   expect(res2.body[1].UserId).toBe(user.id);
   // vérifier que l'id de la séance est le bon
   expect(res2.body[1].CourseId).toBe(course2.id);
-
-  await user.destroy();
 });
