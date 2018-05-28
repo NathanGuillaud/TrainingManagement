@@ -1,9 +1,9 @@
 const development = {
-  database: 'trainingManagement',
+  database: 'trainingmanagement',
   username: 'root',
-  password: '',
+  password: 'root',
   host: 'localhost',
-  dialect: 'mysql',
+  dialect: 'postgres',
 };
 
 // const development = {
