@@ -6,13 +6,13 @@ const development = {
   dialect: 'postgres',
 };
 
-// const development = {
-//   database: 'trainingManagement',
-//   username: 'root',
-//   password: 'root',
-//   host: 'localhost',
-//   dialect: 'mysql',
-// };
+const production = {
+  database: 'trainingmanagement',
+  username: 'root',
+  password: 'root',
+  host: 'localhost',
+  dialect: 'postgres',
+};
 
 const testing = {
   database: 'testauth',
@@ -24,5 +24,6 @@ const testing = {
 
 module.exports = {
   development,
+  production,
   testing,
 };

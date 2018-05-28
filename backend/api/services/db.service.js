@@ -1,4 +1,3 @@
-// Services for database
 const database = require('../../config/database');
 
 const dbService = (environment, migrate) => {
@@ -17,7 +16,7 @@ const dbService = (environment, migrate) => {
   );
 
   const wrongEnvironment = () => {
-    console.warn(`only development and test are valid NODE_ENV variables but ${environment} is specified`);
+    console.warn(`only development, staging, test and production are valid NODE_ENV variables but ${environment} is specified`);
     return process.exit(1);
   };
 
@@ -54,7 +53,30 @@ const dbService = (environment, migrate) => {
     }
   };
 
+  const startStage = async () => {
+    try {
+      await authenticateDB();
+
+      if (migrate) {
+        return startMigrateTrue();
+      }
+
+      return startMigrateFalse();
+    } catch (err) {
+      return errorDBStart(err);
+    }
+  };
+
   const startTest = async () => {
+    try {
+      await authenticateDB();
+      await startMigrateFalse();
+    } catch (err) {
+      errorDBStart(err);
+    }
+  };
+
+  const startProd = async () => {
     try {
       await authenticateDB();
       await startMigrateFalse();
@@ -68,8 +90,14 @@ const dbService = (environment, migrate) => {
       case 'development':
         await startDev();
         break;
+      case 'staging':
+        await startStage();
+        break;
       case 'testing':
         await startTest();
+        break;
+      case 'production':
+        await startProd();
         break;
       default:
         await wrongEnvironment();
