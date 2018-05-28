@@ -3,7 +3,7 @@ const {
   beforeAction,
   afterAction,
 } = require('../setup/_setup');
-const User = require('../../api/models/User');
+const Member = require('../../api/models/Member');
 const Role = require('../../api/models/Role');
 
 let api;
@@ -22,7 +22,7 @@ afterAll(() => {
   afterAction();
 });
 
-test('User | create', async () => {
+test('Member | create', async () => {
   const res = await request(api)
     .post('/api/public/signup')
     .set('Accept', /json/)
@@ -36,18 +36,18 @@ test('User | create', async () => {
     })
     .expect(200);
 
-  expect(res.body.user).toBeTruthy();
+  expect(res.body.member).toBeTruthy();
 
-  const user = await User.findById(res.body.user.id);
+  const member = await Member.findById(res.body.member.id);
 
-  expect(user.id).toBe(res.body.user.id);
-  expect(user.email).toBe(res.body.user.email);
+  expect(member.id).toBe(res.body.member.id);
+  expect(member.email).toBe(res.body.member.email);
 
-  await user.destroy();
+  await member.destroy();
 });
 
-test('User | login', async () => {
-  const user = await User.create({
+test('Member | login', async () => {
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
@@ -66,12 +66,12 @@ test('User | login', async () => {
 
   expect(res.body.token).toBeTruthy();
 
-  expect(user).toBeTruthy();
+  expect(member).toBeTruthy();
 
-  await user.destroy();
+  await member.destroy();
 });
 
-test('User | get all (auth)', async () => {
+test('Member | get all (auth)', async () => {
   let roleObj = new Role();
 
   roleObj = await Role.findOne({
@@ -80,14 +80,14 @@ test('User | get all (auth)', async () => {
     },
   });
 
-  const user = await User.create({
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
   const res = await request(api)
     .post('/api/public/auth')
@@ -101,14 +101,14 @@ test('User | get all (auth)', async () => {
   expect(res.body.token).toBeTruthy();
 
   const res2 = await request(api)
-    .get('/api/admin/private/users')
+    .get('/api/admin/private/members')
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
     .expect(200);
 
-  expect(res2.body.users).toBeTruthy();
-  expect(res2.body.users.length).toBe(1);
+  expect(res2.body.members).toBeTruthy();
+  expect(res2.body.members.length).toBe(1);
 
-  await user.destroy();
+  await member.destroy();
 });

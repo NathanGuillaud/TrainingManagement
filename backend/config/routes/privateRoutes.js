@@ -10,12 +10,12 @@ const privateRoutes = {
 
   // Gestion des enrollments
   'DELETE /enrollments/:id': 'EnrollmentController.remove',
-  'POST /users/:userId/courses/:courseId/enrollments': 'EnrollmentController.create',
-  'GET /users/:userId/trainings/:trainingId/enrollments': 'EnrollmentController.getAllByUserIdTrainingId',
-  'GET /users/:userId/enrollments': 'EnrollmentController.getAllByUserId',
+  'POST /members/:memberId/courses/:courseId/enrollments': 'EnrollmentController.create',
+  'GET /members/:memberId/trainings/:trainingId/enrollments': 'EnrollmentController.getAllByMemberIdTrainingId',
+  'GET /members/:memberId/enrollments': 'EnrollmentController.getAllByMemberId',
 
   // Gestion des invoices
-  'GET /users/:userId/invoices': 'InvoiceController.getAllByUserId',
+  'GET /members/:memberId/invoices': 'InvoiceController.getAllByMemberId',
 };
 
 module.exports = privateRoutes;

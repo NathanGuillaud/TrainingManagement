@@ -3,12 +3,12 @@ const Training = require('../models/Training');
 
 const InvoiceController = () => {
   // Liste des factures par utilisateur
-  const getAllByUserId = async (req, res) => {
-    const { userId } = req.params;
+  const getAllByMemberId = async (req, res) => {
+    const { memberId } = req.params;
     try {
       const invoices = await Invoice.findAll({
         where: {
-          UserId: userId,
+          MemberId: memberId,
         },
         include: [{
           model: Training,
@@ -22,7 +22,7 @@ const InvoiceController = () => {
   };
 
   return {
-    getAllByUserId,
+    getAllByMemberId,
   };
 };
 

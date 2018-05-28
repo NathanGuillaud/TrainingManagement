@@ -7,20 +7,20 @@ info:
 servers:
   - url: http://localhost:8080/api
 paths:
-  /admin/private/users:
+  /admin/private/members:
     get:
-      summary: List all users
+      summary: List all members
       security:
         - token: []
       tags:
-        - users
+        - members
       responses:
         '200':
-          description: An array of users
+          description: An array of members
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/Users"
+                $ref: "#/components/schemas/Members"
         '500':
           description: Unexpected error
           content:
@@ -29,22 +29,22 @@ paths:
                 $ref: "#/components/schemas/Error"
   /public/signup:
     post:
-      summary: Register a user
+      summary: Register a member
       security: []   # No security
       tags:
-        - users
+        - members
       requestBody:
-        description: User details
+        description: Member details
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewUser'
+              $ref: '#/components/schemas/NewMember'
       responses:
         '201':
           description: Null response
         '409':
-          description: User already exists
+          description: Member already exists
           content:
             application/json:
               schema:
@@ -59,14 +59,14 @@ paths:
     post:
       summary: Log to the application
       tags:
-        - users
+        - members
       requestBody:
-        description: User credentials
+        description: Member credentials
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserCredentials'
+              $ref: '#/components/schemas/MemberCredentials'
       responses:
         '200':
           description: Login successfull
@@ -240,7 +240,7 @@ components:
   security:
     - token: ''
   schemas:
-    User:
+    Member:
       required:
         - id
         - username
@@ -270,7 +270,7 @@ components:
         modifiedAt:
           type: string
           format: date-time
-    NewUser:
+    NewMember:
       required:
         - username
         - firstname
@@ -285,10 +285,10 @@ components:
           type: string
         email:
           type: string
-    Users:
+    Members:
       type: array
       items:
-        $ref: "#/components/schemas/User"
+        $ref: "#/components/schemas/Member"
     Error:
       required:
         - message
@@ -301,7 +301,7 @@ components:
       properties:
         token:
           type: string        
-    UserCredentials:
+    MemberCredentials:
       required:
         - username
         - password

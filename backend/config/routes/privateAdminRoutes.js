@@ -1,6 +1,6 @@
 const privateAdminRoutes = {
-  // Gestion des users
-  'GET /users': 'UserController.getAll',
+  // Gestion des members
+  'GET /members': 'MemberController.getAll',
 
   // Gestion des trainings
   'PUT /trainings/:id': 'TrainingController.update',

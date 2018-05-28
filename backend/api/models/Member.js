@@ -10,9 +10,9 @@ const hooks = {
   },
 };
 
-const tableName = 'user';
+const tableName = 'member';
 
-const User = sequelize.define('User', {
+const Member = sequelize.define('Member', {
   username: {
     type: Sequelize.STRING,
     unique: true,
@@ -33,12 +33,27 @@ const User = sequelize.define('User', {
   enabled: {
     type: Sequelize.BOOLEAN,
   },
+  address: {
+    type: Sequelize.STRING,
+  },
+  city: {
+    type: Sequelize.STRING,
+  },
+  postalCode: {
+    type: Sequelize.INTEGER,
+  },
+  birthDate: {
+    type: Sequelize.INTEGER,
+  },
+  gender: {
+    type: Sequelize.INTEGER,
+  },
 }, { hooks, tableName });
 
-// A user can have one to many roles
-User.belongsToMany(Role, { through: 'user_role', as: 'authorities' });
+// A member can have one to many roles
+Member.belongsToMany(Role, { through: 'member_role', as: 'authorities' });
 
-User.prototype.toJSON = function cleanJson() {
+Member.prototype.toJSON = function cleanJson() {
   const values = Object.assign({ }, this.get());
 
   delete values.password;
@@ -46,4 +61,4 @@ User.prototype.toJSON = function cleanJson() {
   return values;
 };
 
-module.exports = User;
+module.exports = Member;

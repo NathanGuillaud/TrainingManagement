@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database');
 const Training = require('../models/Training');
-const User = require('../models/User');
+const Member = require('../models/Member');
 
 const tableName = 'invoice';
 
@@ -12,6 +12,6 @@ const Invoice = sequelize.define('Invoice', {
 }, { tableName });
 
 Invoice.belongsTo(Training);
-Invoice.belongsTo(User);
+Invoice.belongsTo(Member);
 
 module.exports = Invoice;

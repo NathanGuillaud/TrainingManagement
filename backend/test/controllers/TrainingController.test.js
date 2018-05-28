@@ -5,7 +5,7 @@ const {
 } = require('../setup/_setup');
 const Training = require('../../api/models/Training');
 const Role = require('../../api/models/Role');
-const User = require('../../api/models/User');
+const Member = require('../../api/models/Member');
 
 let api;
 
@@ -19,7 +19,7 @@ beforeAll(async () => {
     city: 'TEST CITY',
     postalCode: '01234',
   });
-  // Il faut un user ayant le rôle admin pour pouvoir accéder aux training
+  // Il faut un member ayant le rôle admin pour pouvoir accéder aux training
   await Role.create({
     name: 'ROLE_ADMIN',
   });
@@ -38,17 +38,17 @@ test('Training | create', async () => {
     },
   });
 
-  // création d'un user avec le role admin pour pouvoir créer un training
-  const user = await User.create({
+  // création d'un member avec le role admin pour pouvoir créer un training
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
-  // connexion du user
+  // connexion du member
   const res = await request(api)
     .post('/api/public/auth')
     .set('Accept', /json/)
@@ -83,7 +83,7 @@ test('Training | create', async () => {
   // expect(training.postalCode).toBe(res2.body.postalCode);
 
   await training.destroy();
-  await user.destroy();
+  await member.destroy();
 });
 
 test('Training | get all', async () => {
@@ -95,14 +95,14 @@ test('Training | get all', async () => {
     },
   });
 
-  const user = await User.create({
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
   const res = await request(api)
     .post('/api/public/auth')
@@ -129,5 +129,5 @@ test('Training | get all', async () => {
   // vérifier que le libellé est le bon
   expect(res2.body[0].name).toBe('TEST NAME');
 
-  await user.destroy();
+  await member.destroy();
 });

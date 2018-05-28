@@ -1,4 +1,4 @@
-// Check ROLE_ADMIN belongs to user
+// Check ROLE_ADMIN belongs to member
 module.exports = (req, res, next) => {
   if (req.token.authorities.indexOf('ROLE_ADMIN') > -1) {
     return next();

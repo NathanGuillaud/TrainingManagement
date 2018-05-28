@@ -1,5 +1,5 @@
 const Course = require('../models/Course');
-const User = require('../models/User');
+const Member = require('../models/Member');
 
 const sequelize = require('../../config/database');
 
@@ -9,6 +9,6 @@ const Enrollment = sequelize.define('Enrollment', {
 }, { tableName });
 
 Enrollment.belongsTo(Course);
-Enrollment.belongsTo(User);
+Enrollment.belongsTo(Member);
 
 module.exports = Enrollment;

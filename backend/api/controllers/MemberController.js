@@ -1,9 +1,9 @@
-const User = require('../models/User');
+const Member = require('../models/Member');
 const Role = require('../models/Role');
 const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
 
-const UserController = () => {
+const MemberController = () => {
   // Création d'un utilisateur
   // L'utilisateur est créé avec le role ROLE_USER par défaut
   const register = async (req, res) => {
@@ -27,18 +27,23 @@ const UserController = () => {
 
     // Création de l'utilisateur
     try {
-      const user = await User.create({
+      const member = await Member.create({
         username: body.username,
         firstname: body.firstname,
         lastname: body.lastname,
         email: body.email,
         password: body.password,
         enabled: true,
+        address: body.address,
+        city: body.city,
+        postalCode: body.postalCode,
+        birthDate: body.birthDate,
+        gender: body.gender,
       });
       // Ajout du rôle
-      await user.setAuthorities(roleObj);
+      await member.setAuthorities(roleObj);
 
-      return res.status(200).json({ user });
+      return res.status(200).json({ member });
     } catch (err) {
       console.log(err);
       // L'utilisateur existe déjà
@@ -53,7 +58,7 @@ const UserController = () => {
     // return res.status(400).json({ message: 'Passwords don\'t match' });
   };
 
-  // User login
+  // Member login
   const login = async (req, res) => {
     // Récupération de coprs de la requête
     const { username, password } = req.body;
@@ -61,7 +66,7 @@ const UserController = () => {
     if (username && password) {
       // Recherche de l'utilisateur et récupération des rôles
       try {
-        const user = await User.findOne({
+        const member = await Member.findOne({
           include: [
             {
               model: Role,
@@ -74,24 +79,24 @@ const UserController = () => {
           },
         });
         // Utilisateur non trouvé
-        if (!user) {
+        if (!member) {
           return res.status(400).json({ message: 'Utilisateur inconnu.' });
         }
 
         // Utilisateur trouvé, déchiffrement du mot de passe
-        if (bcryptService().comparePassword(password, user.password)) {
+        if (bcryptService().comparePassword(password, member.password)) {
           const roles = [];
-          user.authorities.forEach((role) => {
+          member.authorities.forEach((role) => {
             roles.push(role.name);
           });
 
           // Création du token JWT
           const token = authService().issue({
-            id: user.id,
-            username: user.username,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
+            id: member.id,
+            username: member.username,
+            firstname: member.firstname,
+            lastname: member.lastname,
+            email: member.email,
             authorities: roles,
           });
 
@@ -124,9 +129,9 @@ const UserController = () => {
   // Liste des utilisateurs
   const getAll = async (req, res) => {
     try {
-      const users = await User.findAll();
+      const members = await Member.findAll();
 
-      return res.status(200).json({ users });
+      return res.status(200).json({ members });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
@@ -141,4 +146,4 @@ const UserController = () => {
   };
 };
 
-module.exports = UserController;
+module.exports = MemberController;

@@ -5,12 +5,12 @@ const {
 } = require('../setup/_setup');
 const Training = require('../../api/models/Training');
 const Role = require('../../api/models/Role');
-const User = require('../../api/models/User');
+const Member = require('../../api/models/Member');
 const Course = require('../../api/models/Course');
 const Enrollment = require('../../api/models/Enrollment');
 
 let api;
-let user;
+let member;
 let course1;
 let course2;
 
@@ -47,35 +47,35 @@ beforeAll(async () => {
     price: 9,
     TrainingId: trainingObj.id,
   });
-  // Il faut un user ayant le rôle user pour pouvoir manipuler ses inscriptions
+  // Il faut un member ayant le rôle member pour pouvoir manipuler ses inscriptions
   const roleObj = await Role.create({
     name: 'ROLE_USER',
   });
 
-  // création d'un user avec le role user pour pouvoir s'inscrire à une course d'un training
-  user = await User.create({
+  // création d'un member avec le role member pour pouvoir s'inscrire à une course d'un training
+  member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
   // Création de 2 inscriptions pour l'utilisateur aux 2 séances du stage
   await Enrollment.create({
-    UserId: user.id,
+    MemberId: member.id,
     CourseId: course1.id,
   });
   await Enrollment.create({
-    UserId: user.id,
+    MemberId: member.id,
     CourseId: course2.id,
   });
 });
 
 afterAll(async () => {
   api = await afterAction();
-  await user.destroy();
+  await member.destroy();
 });
 
 test('Enrollment | create', async () => {
@@ -96,7 +96,7 @@ test('Enrollment | create', async () => {
     },
   });
 
-  // connexion du user
+  // connexion du member
   const res = await request(api)
     .post('/api/public/auth')
     .set('Accept', /json/)
@@ -110,7 +110,7 @@ test('Enrollment | create', async () => {
 
   // création d'une inscription à une course d'un training
   const res2 = await request(api)
-    .post(`/api/private/users/${user.id}/courses/${courseObj.id}/enrollments`)
+    .post(`/api/private/members/${member.id}/courses/${courseObj.id}/enrollments`)
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -121,13 +121,13 @@ test('Enrollment | create', async () => {
   const enrollment = await Enrollment.findById(res2.body.id);
 
   expect(enrollment.id).toBe(res2.body.id);
-  expect(enrollment.UserId).toBe(parseInt(res2.body.UserId, 0));
+  expect(enrollment.MemberId).toBe(parseInt(res2.body.MemberId, 0));
   expect(enrollment.CourseId).toBe(parseInt(res2.body.CourseId, 0));
 
   await enrollment.destroy();
 });
 
-test('Enrollment | get all by user id training id', async () => {
+test('Enrollment | get all by member id training id', async () => {
   let trainingObj = new Training();
   // récupération du stage
   trainingObj = await Training.findOne({
@@ -164,7 +164,7 @@ test('Enrollment | get all by user id training id', async () => {
   expect(res.body.token).toBeTruthy();
 
   const res2 = await request(api)
-    .get(`/api/private/users/${user.id}/trainings/${trainingObj.id}/enrollments`)
+    .get(`/api/private/members/${member.id}/trainings/${trainingObj.id}/enrollments`)
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -177,18 +177,18 @@ test('Enrollment | get all by user id training id', async () => {
   // vérifier que l'id est le bon
   expect(res2.body[0].id).toBe(1);
   // vérifier que l'id utilisateur est le bon
-  expect(res2.body[0].UserId).toBe(user.id);
+  expect(res2.body[0].MemberId).toBe(member.id);
   // vérifier que l'id de la séance est le bon
   expect(res2.body[0].CourseId).toBe(course1.id);
   // vérifier que l'id est le bon
   expect(res2.body[1].id).toBe(2);
   // vérifier que l'id utilisateur est le bon
-  expect(res2.body[1].UserId).toBe(user.id);
+  expect(res2.body[1].MemberId).toBe(member.id);
   // vérifier que l'id de la séance est le bon
   expect(res2.body[1].CourseId).toBe(course2.id);
 });
 
-test('Enrollment | get all by user id', async () => {
+test('Enrollment | get all by member id', async () => {
   course1 = new Course();
   // récupération de la séance 1
   course1 = await Course.findOne({
@@ -217,7 +217,7 @@ test('Enrollment | get all by user id', async () => {
   expect(res.body.token).toBeTruthy();
 
   const res2 = await request(api)
-    .get(`/api/private/users/${user.id}/enrollments`)
+    .get(`/api/private/members/${member.id}/enrollments`)
     .set('Accept', /json/)
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
@@ -230,13 +230,13 @@ test('Enrollment | get all by user id', async () => {
   // vérifier que l'id est le bon
   expect(res2.body[0].id).toBe(1);
   // vérifier que l'id utilisateur est le bon
-  expect(res2.body[0].UserId).toBe(user.id);
+  expect(res2.body[0].MemberId).toBe(member.id);
   // vérifier que l'id de la séance est le bon
   expect(res2.body[0].CourseId).toBe(course1.id);
   // vérifier que l'id est le bon
   expect(res2.body[1].id).toBe(2);
   // vérifier que l'id utilisateur est le bon
-  expect(res2.body[1].UserId).toBe(user.id);
+  expect(res2.body[1].MemberId).toBe(member.id);
   // vérifier que l'id de la séance est le bon
   expect(res2.body[1].CourseId).toBe(course2.id);
 });

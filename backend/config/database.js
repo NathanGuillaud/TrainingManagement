@@ -2,23 +2,19 @@ const Sequelize = require('sequelize');
 const path = require('path');
 const connection = require('./connection');
 
+// const herokuUrl = process.env.DATABASE_URL;
+
 let database;
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    database = new Sequelize(
-      connection.production.database,
-      connection.production.username,
-      connection.production.password, {
-        host: connection.production.host,
-        dialect: connection.production.dialect,
-        pool: {
-          max: 5,
-          min: 0,
-          idle: 10000,
-        },
+    database = new Sequelize(process.env.DATABASE_URL, {
+      logging: false,
+      dialectOptions: {
+        ssl: true, /* for SSL config since Heroku gives you this out of the box */
       },
-    );
+    });
+    break;
   case 'development':
     database = new Sequelize(
       connection.development.database,

@@ -5,7 +5,7 @@ const {
 } = require('../setup/_setup');
 const Training = require('../../api/models/Training');
 const Role = require('../../api/models/Role');
-const User = require('../../api/models/User');
+const Member = require('../../api/models/Member');
 const Course = require('../../api/models/Course');
 
 let api;
@@ -36,7 +36,7 @@ beforeAll(async () => {
     price: 8,
     TrainingId: trainingObj.id,
   });
-  // Il faut un user ayant le rôle admin pour pouvoir accéder aux training
+  // Il faut un member ayant le rôle admin pour pouvoir accéder aux training
   await Role.create({
     name: 'ROLE_ADMIN',
   });
@@ -63,17 +63,17 @@ test('Course | create', async () => {
     },
   });
 
-  // création d'un user avec le role admin pour pouvoir créer une course au training
-  const user = await User.create({
+  // création d'un member avec le role admin pour pouvoir créer une course au training
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
-  // connexion du user
+  // connexion du member
   const res = await request(api)
     .post('/api/public/auth')
     .set('Accept', /json/)
@@ -109,7 +109,7 @@ test('Course | create', async () => {
   expect(course.price).toBe(res2.body.price);
 
   await course.destroy();
-  await user.destroy();
+  await member.destroy();
 });
 
 test('Course | get all', async () => {
@@ -121,14 +121,14 @@ test('Course | get all', async () => {
     },
   });
 
-  const user = await User.create({
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
   const res = await request(api)
     .post('/api/public/auth')
@@ -160,7 +160,7 @@ test('Course | get all', async () => {
   expect(res2.body[0].begin).toBe('09:30');
   expect(res2.body[0].TrainingId).toBe(1);
 
-  await user.destroy();
+  await member.destroy();
 });
 
 test('Course | get all by training id', async () => {
@@ -172,14 +172,14 @@ test('Course | get all by training id', async () => {
     },
   });
 
-  const user = await User.create({
+  const member = await Member.create({
     username: 'martin',
     email: 'martin.dupont@mail.com',
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
   });
-  await user.setAuthorities(roleObj);
+  await member.setAuthorities(roleObj);
 
   const res = await request(api)
     .post('/api/public/auth')
@@ -225,5 +225,5 @@ test('Course | get all by training id', async () => {
   // vérifier que la dta de début est la bonne
   expect(res3.body[0].day).toBe('2018-02-02');
 
-  await user.destroy();
+  await member.destroy();
 });

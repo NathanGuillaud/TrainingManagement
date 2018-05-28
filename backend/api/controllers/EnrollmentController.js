@@ -1,21 +1,21 @@
 const Enrollment = require('../models/Enrollment');
 const Course = require('../models/Course');
-const User = require('../models/User');
+const Member = require('../models/Member');
 
 const EnrollmentController = () => {
   // Création d'une inscription
   const create = async (req, res) => {
     // req.params = paramètre de l'URL
-    const { userId, courseId } = req.params;
+    const { memberId, courseId } = req.params;
     try {
-      await User.findById(userId);
+      await Member.findById(memberId);
       try {
         await Course.findById(courseId);
         // Création de l'inscription
         try {
           const enrollment = await Enrollment.create({
             CourseId: courseId,
-            UserId: userId,
+            MemberId: memberId,
           });
           return res.status(200).json(enrollment);
         } catch (err) {
@@ -50,17 +50,17 @@ const EnrollmentController = () => {
   // Liste des inscriptions par utilisateur et par stage
   // SELECT *
   // FROM Enrollment
-  // WHERE UserId = userId
+  // WHERE MemberId = memberId
   // AND CourseId IN
   //                (SELECT Course.id
   //                FROM Course
   //                WHERE Course.TrainingId = trainingId)
-  const getAllByUserIdTrainingId = async (req, res) => {
-    const { userId, trainingId } = req.params;
+  const getAllByMemberIdTrainingId = async (req, res) => {
+    const { memberId, trainingId } = req.params;
     try {
       const enrollments = await Enrollment.findAll({
         where: {
-          UserId: userId,
+          MemberId: memberId,
         },
         include: [{
           model: Course,
@@ -77,12 +77,12 @@ const EnrollmentController = () => {
     }
   };
 
-  const getAllByUserId = async (req, res) => {
-    const { userId } = req.params;
+  const getAllByMemberId = async (req, res) => {
+    const { memberId } = req.params;
     try {
       const enrollments = await Enrollment.findAll({
         where: {
-          UserId: userId,
+          MemberId: memberId,
         },
         include: [{
           model: Course,
@@ -102,8 +102,8 @@ const EnrollmentController = () => {
   return {
     create,
     remove,
-    getAllByUserIdTrainingId,
-    getAllByUserId,
+    getAllByMemberIdTrainingId,
+    getAllByMemberId,
   };
 };
 
