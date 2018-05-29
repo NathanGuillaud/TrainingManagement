@@ -1,1 +1,1 @@
-web: NODE_ENV=development node ./backend/api/api.js
+web: yarn production

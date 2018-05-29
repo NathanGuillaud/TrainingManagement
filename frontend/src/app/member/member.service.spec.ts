@@ -1,17 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { MemberService } from './member.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('UserService', () => {
+describe('MemberService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UserService],
+      providers: [MemberService],
       imports: [ HttpClientTestingModule]
     });
   });
 
-  it('should be created', inject([UserService], (service: UserService) => {
+  it('should be created', inject([MemberService], (service: MemberService) => {
     expect(service).toBeTruthy();
   }));
 });

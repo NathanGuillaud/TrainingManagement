@@ -1,5 +1,5 @@
 import { AlertModule } from './../alert/alert.module';
-import { UserModule } from './../user/user.module';
+import { MemberModule } from './../member/member.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,7 +14,7 @@ describe('RegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
-      imports: [ FormsModule , RouterTestingModule, UserModule, HttpClientTestingModule, AlertModule]
+      imports: [ FormsModule , RouterTestingModule, MemberModule, HttpClientTestingModule, AlertModule]
     })
     .compileComponents();
   }));

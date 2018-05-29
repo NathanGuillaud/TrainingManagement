@@ -16,7 +16,7 @@ import { RegisterModule } from './register/register.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import { TrainingModule } from './training/training.module';
-import { UserService } from './user/user.service';
+import { MemberService } from './member/member.service';
 import { RoutingModule } from './routing/routing.module';
 import { JwtInterceptor } from './authentication/jwt.interceptor';
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -49,7 +49,7 @@ import { InvoiceModule } from './invoice/invoice.module';
   providers: [
     AlertService,
     AuthenticationService,
-    UserService,
+    MemberService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

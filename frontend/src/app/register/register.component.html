@@ -1,21 +1,64 @@
 <form class="form-sign text-center mt-5" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
     <h1>Création de compte</h1>
-    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }" name="firstname" [(ngModel)]="user.firstname" #firstname="ngModel" placeholder="Prénom" required autofocus />
+    <label>Prénom *</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }" name="firstname" [(ngModel)]="member.firstname"
+        #firstname="ngModel" placeholder="Prénom" required autofocus />
     <small *ngIf="f.submitted && !firstname.valid" class="float-left text-danger">Le prénom est obligatoire</small>
 
-    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }" name="lastname" [(ngModel)]="user.lastname" #lastname="ngModel" placeholder="Nom" required />
+    <label>Nom *</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }" name="lastname" [(ngModel)]="member.lastname"
+        #lastname="ngModel" placeholder="Nom" required />
     <small *ngIf="f.submitted && !lastname.valid" class="float-left text-danger">Le nom est obligatoire</small>
 
-    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !username.valid }" name="username" [(ngModel)]="user.username" #username="ngModel" placeholder="Nom d'utilisateur" required />
+    <label>Login *</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !username.valid }" name="username" [(ngModel)]="member.username"
+        #username="ngModel" placeholder="Nom d'utilisateur" required />
     <small *ngIf="f.submitted && !username.valid" class="float-left text-danger">Le nom d'utilisateur est obligatoire</small>
 
-    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !email.valid }" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="Email" required />
+    <label>Email *</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !email.valid }" name="email" [(ngModel)]="member.email"
+        #email="ngModel" placeholder="Email" required />
     <small *ngIf="f.submitted && !email.valid" class="float-left text-danger">L'email est obligatoire</small>
 
-    <input class="form-control" type="password" [ngClass]="{ 'has-error': f.submitted && !password.valid }" name="password" [(ngModel)]="user.password" #password="ngModel" placeholder="Mot de passe" required />
+    <label>Mot de passe *</label>
+    <input class="form-control" type="password" [ngClass]="{ 'has-error': f.submitted && !password.valid }" name="password" [(ngModel)]="member.password"
+        #password="ngModel" placeholder="Mot de passe" required />
     <small *ngIf="f.submitted && !password.valid" class="float-left text-danger">Le mot de passe est obligatoire</small>
 
-    <button [disabled]="loading" class="mt-2 btn btn-lg btn-block btn-primary">S'enregister</button>
-    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    <label>Addresse</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !address.valid }" name="address" [(ngModel)]="member.address"
+        #address="ngModel" placeholder="Adresse" />
+    <small *ngIf="f.submitted && !address.valid"></small>
+
+    <label>Ville</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !city.valid }" name="city" [(ngModel)]="member.city"
+        #city="ngModel" placeholder="Ville" />
+    <small *ngIf="f.submitted && !city.valid"></small>
+
+    <label>Code postal</label>
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }" name="postalCode" [(ngModel)]="member.postalCode"
+        #postalCode="ngModel" placeholder="Code postal" />
+    <small *ngIf="f.submitted && !postalCode.valid"></small>
+
+    <label>Date de naissance</label>
+    <input class="form-control" type="date" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }" name="birthDate" [(ngModel)]="member.birthDate"
+        #birthDate="ngModel" placeholder="Date de naissance" />
+    <small *ngIf="f.submitted && !birthDate.valid"></small>
+
+    <label>Sexe</label>
+    <div>
+        <input type="radio" id="female" name="gender" value="female" [(ngModel)]="member.gender" #gender="ngModel" required>
+        <label for="female">Femme</label>
+
+        <input type="radio" id="male" name="gender" value="male" [(ngModel)]="member.gender" #gender="ngModel">
+        <label for="male">Homme</label>
+    </div>
+    <small *ngIf="f.submitted && !gender.valid" class="float-left text-danger">Le sexe est obligatoire</small>
+
+    <p class="text-muted">Les champs annotés de * sont obligatoires</p>
+
+    <button [disabled]="loading" class="mt-2 btn btn-lg btn-block btn-primary">S'enregistrer</button>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
     <button class="btn btn-lg btn-block btn-danger" [routerLink]="['/login']">Annuler</button>
 </form>

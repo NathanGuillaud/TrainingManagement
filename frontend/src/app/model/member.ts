@@ -1,6 +1,6 @@
 import { Authority } from './authority';
 
-export class User {
+export class Member {
     id: number;
     username: string;
     password: string;
@@ -8,6 +8,11 @@ export class User {
     lastname: string;
     email: string;
     enabled: boolean;
+    address: string;
+    city: string;
+    postalCode: number;
+    birthDate: string;
+    gender: string;
     authorities: Authority[];
     token: string;
 }

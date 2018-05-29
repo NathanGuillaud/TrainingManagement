@@ -1,6 +1,6 @@
 import { AlertService } from './../alert/alert.service';
-import { UserService } from './../user/user.service';
-import { User } from './../model/user';
+import { MemberService } from './../member/member.service';
+import { Member } from './../model/member';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,17 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  user: User = new User();
+  member: Member = new Member();
   loading = false;
 
   constructor(
         private router: Router,
-        private userService: UserService,
+        private memberService: MemberService,
         private alertService: AlertService) { }
 
 register() {
+  console.log('COUCOU');
   this.loading = true;
-  this.userService.create(this.user)
+  this.memberService.create(this.member)
       .subscribe(
           data => {
               // set success message and pass true paramater to persist the message after redirecting to the login page

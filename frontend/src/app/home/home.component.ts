@@ -1,7 +1,7 @@
 import { AlertService } from './../alert/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
-import { UserService } from '../user/user.service';
+import { Member } from '../model/member';
+import { MemberService } from '../member/member.service';
 
 @Component({
   selector: 'app-home',
@@ -9,20 +9,20 @@ import { UserService } from '../user/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    currentUser: User = new User();
-    users: User[] = [];
+    currentMember: Member = new Member();
+    members: Member[] = [];
 
     constructor(
-        private userService: UserService,
+        private memberService: MemberService,
         private alertService: AlertService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentMember = JSON.parse(localStorage.getItem('currentMember'));
     }
 
     ngOnInit() {
     }
 
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; },
+    private loadAllMembers() {
+        this.memberService.getAll().subscribe(members => { this.members = members; },
             error => {
               this.alertService.error(error.status, error.error.message);
           });

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from './user.service';
+import { MemberService } from './member.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [],
-  providers: [UserService]
+  providers: [MemberService]
 })
-export class UserModule { }
+export class MemberModule { }

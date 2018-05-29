@@ -2,7 +2,7 @@ import { CourseComponent } from './../course/course.component';
 import { ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { CourseService } from './../course/course.service';
 import { TrainingService } from './training.service';
-import { User } from './../model/user';
+import { Member } from './../model/member';
 import { AuthenticationService } from './../authentication/authentication.service';
 import { AlertService } from './../alert/alert.service';
 import { Component, OnInit } from '@angular/core';

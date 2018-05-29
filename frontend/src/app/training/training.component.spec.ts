@@ -3,7 +3,7 @@ import { AuthenticationModule } from './../authentication/authentication.module'
 import { TrainingModule } from './training.module';
 import { AlertModule } from './../alert/alert.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UserModule } from './../user/user.module';
+import { MemberModule } from './../member/member.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -42,7 +42,7 @@ describe('TrainingComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [FormsModule, RouterTestingModule, UserModule, HttpClientTestingModule, AlertModule, TrainingModule, AuthenticationModule]
+      imports: [FormsModule, RouterTestingModule, MemberModule, HttpClientTestingModule, AlertModule, TrainingModule, AuthenticationModule]
     })
       .compileComponents();
   }));

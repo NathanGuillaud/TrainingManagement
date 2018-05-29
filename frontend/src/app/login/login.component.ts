@@ -1,4 +1,4 @@
-import { User } from './../model/user';
+import { Member } from './../model/member';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,10 +12,10 @@ import { AuthenticationService } from '../authentication/authentication.service'
 })
 export class LoginComponent implements OnInit {
 
-  user: any = {};
+    member: any = {};
   loading = false;
   returnUrl: string;
-  loggedUser: User = new User();
+  loggedMember: Member = new Member();
 
     constructor(
         private route: ActivatedRoute,
@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.user.username, this.user.password)
+        this.authenticationService.login(this.member.username, this.member.password)
             .subscribe(
-                user => {
-                    this.user = user;
+                member => {
+                    this.member = member;
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

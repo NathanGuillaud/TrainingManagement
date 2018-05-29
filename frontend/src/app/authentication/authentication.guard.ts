@@ -38,7 +38,7 @@ export class AuthenticationGuard implements CanActivate {
         }
 
         this.authService.isLoggedIn.subscribe(value => this.isLoggedIn = value);
-        // If user is logged in and role is compliant with route OR if user is logged (no role to be checked)
+        // If member is logged in and role is compliant with route OR if member is logged (no role to be checked)
         if (this.isLoggedIn && ((authorityValidated && expectedRole != null) || (expectedRole == null))) {
             // logged in so return true
             return true;
@@ -52,7 +52,7 @@ export class AuthenticationGuard implements CanActivate {
             this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         }
 
-        // User is logged but authorization is denied for route
+        // Member is logged but authorization is denied for route
         if (this.isLoggedIn && ((!authorityValidated && expectedRole != null))) {
             this.alertService.warning(401, 'Vous n\'êtes pas autorisé à accéder à cette ressource.', true);
             this.router.navigate(['/']);

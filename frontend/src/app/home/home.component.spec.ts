@@ -1,11 +1,11 @@
-import { UserModule } from './../user/user.module';
+import { MemberModule } from './../member/member.module';
 import { AlertModule } from './../alert/alert.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { UserService } from '../user/user.service';
+import { MemberService } from '../member/member.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,7 +14,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule, AlertModule, UserModule]
+      imports: [ RouterTestingModule, HttpClientTestingModule, AlertModule, MemberModule]
     })
     .compileComponents();
   }));

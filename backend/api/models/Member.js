@@ -5,8 +5,8 @@ const Role = require('../models/Role');
 const sequelize = require('../../config/database');
 
 const hooks = {
-  beforeCreate(user) {
-    user.password = bcryptSevice().password(user);
+  beforeCreate(member) {
+    member.password = bcryptSevice().password(member);
   },
 };
 
@@ -43,10 +43,10 @@ const Member = sequelize.define('Member', {
     type: Sequelize.INTEGER,
   },
   birthDate: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DATE,
   },
   gender: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
   },
 }, { hooks, tableName });
 

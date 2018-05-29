@@ -1,6 +1,6 @@
 import { AuthenticationService } from './../authentication/authentication.service';
-import { UserService } from './../user/user.service';
-import { User } from './../model/user';
+import { MemberService } from './../member/member.service';
+import { Member } from './../model/member';
 import { Enrollment } from './../model/enrollment';
 import { Course } from './../model/course';
 import { ExtendedCourse } from './../model/extendedCourse';
@@ -17,7 +17,7 @@ import { EnrollmentService } from './enrollment.service';
   styleUrls: ['./enrollment.component.css']
 })
 export class EnrollmentComponent implements OnInit {
-  currentUser: User;
+  currentMember: Member;
   currentTraining: Training;
   extendedCourses: ExtendedCourse[] = [];
   courses: Course[] = [];
@@ -80,7 +80,7 @@ export class EnrollmentComponent implements OnInit {
           this.currentCourse = course;
         }
       });
-      this.enrollmentService.createEnrollment(this.authenticationService.getUserId(), this.currentCourse.id)
+      this.enrollmentService.createEnrollment(this.authenticationService.getMemberId(), this.currentCourse.id)
         .subscribe(
           enrollment => {
             // set success message and pass true paramater to persist the message after redirecting to the login page
@@ -122,7 +122,7 @@ export class EnrollmentComponent implements OnInit {
   }
 
   private loadAllEnrollments(training: Training) {
-    this.enrollmentService.getAllEnrollmentsByUserIdTrainingId(this.authenticationService.getUserId(), training.id).subscribe(
+    this.enrollmentService.getAllEnrollmentsByMemberIdTrainingId(this.authenticationService.getMemberId(), training.id).subscribe(
       results => {
         this.enrollments = results;
         this.checkSelected();

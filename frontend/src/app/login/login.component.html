@@ -1,9 +1,9 @@
 <form class="form-sign text-center mt-5" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <h1>Connexion</h1>
-    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !username.valid }" name="username" [(ngModel)]="user.username" placeholder="Utilisateur" #username="ngModel" required autofocus />
+    <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !username.valid }" name="username" [(ngModel)]="member.username" placeholder="Utilisateur" #username="ngModel" required autofocus />
     <small *ngIf="f.submitted && !username.valid" class="float-left text-danger">Le nom d'utilisateur est obligatoire</small>
 
-    <input class="form-control" type="password" [ngClass]="{ 'has-error': f.submitted && !password.valid }" name="password" [(ngModel)]="user.password" #password="ngModel" placeholder="Mot de passe" required />
+    <input class="form-control" type="password" [ngClass]="{ 'has-error': f.submitted && !password.valid }" name="password" [(ngModel)]="member.password" #password="ngModel" placeholder="Mot de passe" required />
     <small *ngIf="f.submitted && !password.valid" class="float-left text-danger">Le mot de passe est obligatoire</small>
 
     <button class="mt-2 btn btn-lg btn-block btn-primary" [disabled]="loading">Se connecter</button>

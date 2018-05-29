@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from './../../authentication/authentication.service';
-import { UserService } from './../../user/user.service';
-import { User } from './../../model/user';
+import { MemberService } from './../../member/member.service';
+import { Member } from './../../model/member';
 import { Enrollment } from './../../model/enrollment';
 import { AlertService } from './../../alert/alert.service';
 import { Training } from './../../model/training';
@@ -34,7 +34,7 @@ export class EnrollmentListComponent implements OnInit {
 
   private loadAllEnrollments() {
     let currentTrainingId: number;
-    this.enrollmentService.getAllEnrollmentsByUserId(this.authenticationService.getUserId()).subscribe(
+    this.enrollmentService.getAllEnrollmentsByMemberId(this.authenticationService.getMemberId()).subscribe(
       results => {
         this.enrollments = results;
         // Affectation de l'id courant

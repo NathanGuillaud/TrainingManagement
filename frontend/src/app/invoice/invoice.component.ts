@@ -23,7 +23,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   private loadAllInvoices() {
-    this.invoiceService.getAllInvoicesByUserId(this.authenticationService.getUserId()).subscribe(
+    this.invoiceService.getAllInvoicesByMemberId(this.authenticationService.getMemberId()).subscribe(
       results => {
         this.invoices = results;
       },

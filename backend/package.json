@@ -1,15 +1,11 @@
 {
-  "name": "express-rest-api-boilerplate",
+  "name": "trainingmanagement",
   "version": "0.0.0",
-  "author": "Lukas Aichbauer <l.aichbauer@gmail.com>",
+  "author": "Nathan Guillaud <nathan.guillaud@orange.fr>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aichbauer/express-rest-api-boilerplate.git"
-  },
-  "homepage": "https://github.com/aichbauer/express-rest-api-boilerplate#readme",
-  "bugs": {
-    "url": "https://github.com/aichbauer/express-rest-api-boilerplate/issues"
+    "url": "git+https://github.com/Nathaniut/TrainingManagement"
   },
   "scripts": {
     "start": "npm run nodemon",

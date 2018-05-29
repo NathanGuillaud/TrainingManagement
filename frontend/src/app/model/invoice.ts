@@ -3,6 +3,6 @@ export class Invoice {
         public id: number,
         public price: number,
         public TrainingId: number,
-        public UserId: number
+        public MemberId: number
     ) {}
 }

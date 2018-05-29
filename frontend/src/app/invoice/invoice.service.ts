@@ -7,8 +7,8 @@ export class InvoiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllInvoicesByUserId(userId: number) {
-    return this.http.get<Invoice[]>('http://localhost:8080/api/private/users/' + userId + '/invoices');
+  getAllInvoicesByMemberId(memberId: number) {
+    return this.http.get<Invoice[]>('http://localhost:8080/api/private/members/' + memberId + '/invoices');
   }
 
 }

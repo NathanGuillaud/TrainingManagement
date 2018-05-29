@@ -5,16 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
-import { User } from '../model/user';
+import { Member } from '../model/member';
 
 @Injectable()
 export class AuthenticationService {
     private loggedIn = new BehaviorSubject<boolean>(false);
 
     get isLoggedIn() {
-        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
-        if (user != null) {
-            const token = user.token;
+        const member = JSON.parse(localStorage.getItem('currentMember')) as Member;
+        if (member != null) {
+            const token = member.token;
             const expiredTime = jwt_decode(token).exp;
             const currentTime = new Date().getTime() / 1000;
             if (currentTime < expiredTime) {
@@ -33,7 +33,7 @@ export class AuthenticationService {
             .do(receivedToken => {
                 const decoded = jwt_decode(receivedToken.token);
 
-                const user = new User();
+                const member = new Member();
                 const roleList: Authority[] = [];
                 const authorities = decoded.authorities;
                 authorities.forEach(authority => {
@@ -41,35 +41,35 @@ export class AuthenticationService {
                     role.name = authority;
                     roleList.push(role);
                 });
-                user.authorities = roleList;
-                user.email = decoded.email;
-                user.firstname = decoded.firstname;
-                user.lastname = decoded.lastname;
-                user.id = decoded.id;
-                user.token = receivedToken.token;
+                member.authorities = roleList;
+                member.email = decoded.email;
+                member.firstname = decoded.firstname;
+                member.lastname = decoded.lastname;
+                member.id = decoded.id;
+                member.token = receivedToken.token;
 
                 // login successful if there's a jwt token in the response
                 if (receivedToken && receivedToken.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // store member details and jwt token in local storage to keep member logged in between page refreshes
                     this.loggedIn.next(true);
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentMember', JSON.stringify(member));
                 }
-                return user;
+                return member;
             });
     }
 
     logout() {
-        // remove user from local storage to log user out
+        // remove member from local storage to log member out
         console.log('Removing JWT token');
         this.loggedIn.next(false);
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentMember');
     }
 
     isAdmin(): boolean {
-        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
+        const member = JSON.parse(localStorage.getItem('currentMember')) as Member;
         let found = false;
-        if (user != null) {
-            user.authorities.forEach(auth => {
+        if (member != null) {
+            member.authorities.forEach(auth => {
                 if (auth.name === 'ROLE_ADMIN') {
                     found = true;
                 }
@@ -79,10 +79,10 @@ export class AuthenticationService {
     }
 
     isUser(): boolean {
-        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
+        const member = JSON.parse(localStorage.getItem('currentMember')) as Member;
         let found = false;
-        if (user != null) {
-           user.authorities.forEach(auth => {
+        if (member != null) {
+            member.authorities.forEach(auth => {
                 if (auth.name === 'ROLE_USER') {
                     found = true;
                 }
@@ -91,8 +91,8 @@ export class AuthenticationService {
         return found;
     }
 
-    getUserId(): number {
-        const user = JSON.parse(localStorage.getItem('currentUser')) as User;
-        return user.id;
+    getMemberId(): number {
+        const member = JSON.parse(localStorage.getItem('currentMember')) as Member;
+        return member.id;
     }
 }
