@@ -59,7 +59,7 @@ app.use('/api/private', mappedAuthRoutes);
 app.use('/api/admin/private', mappedAuthAdminRoutes);
 
 // Redirection du / vers /api-docs
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
 

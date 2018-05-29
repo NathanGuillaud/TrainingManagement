@@ -19,7 +19,6 @@ export class RegisterComponent {
         private alertService: AlertService) { }
 
 register() {
-  console.log('COUCOU');
   this.loading = true;
   this.memberService.create(this.member)
       .subscribe(

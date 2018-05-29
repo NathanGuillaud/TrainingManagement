@@ -6,6 +6,7 @@ info:
     name: MIT
 servers:
   - url: http://localhost:8080/api
+  - url: https://ng-training-app.herokuapp.com/api
 paths:
   /admin/private/members:
     get:

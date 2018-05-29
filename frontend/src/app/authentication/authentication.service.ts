@@ -62,7 +62,6 @@ export class AuthenticationService {
 
     logout() {
         // remove member from local storage to log member out
-        console.log('Removing JWT token');
         this.loggedIn.next(false);
         localStorage.removeItem('currentMember');
     }
