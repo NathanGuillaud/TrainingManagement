@@ -58,5 +58,10 @@ app.use('/api/public', mappedOpenRoutes);
 app.use('/api/private', mappedAuthRoutes);
 app.use('/api/admin/private', mappedAuthAdminRoutes);
 
+// Redirection du / vers /api-docs
+app.get('/', function (req, res) {
+  res.redirect('/api-docs');
+});
+
 // Start server
 server.listen(config.port, () => databaseHandler);
