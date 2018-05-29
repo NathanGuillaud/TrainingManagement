@@ -56,7 +56,7 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  private remove() {
+  remove() {
     this.saving = true;
 
     this.refChild.destroy();

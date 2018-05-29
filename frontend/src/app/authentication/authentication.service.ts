@@ -6,10 +6,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from 'jwt-decode';
 import { Member } from '../model/member';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
     private loggedIn = new BehaviorSubject<boolean>(false);
+    baseUrl = environment.baseUrl;
 
     get isLoggedIn() {
         const member = JSON.parse(localStorage.getItem('currentMember')) as Member;
@@ -29,7 +31,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>('http://localhost:8080/api/public/auth', { username: username, password: password })
+        return this.http.post<any>(this.baseUrl + '/public/auth', { username: username, password: password })
             .do(receivedToken => {
                 const decoded = jwt_decode(receivedToken.token);
 

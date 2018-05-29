@@ -1,32 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Training } from '../model/training';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TrainingService {
+
+  baseUrl = environment.baseUrl;
 
   public trainingStorage: Training;
 
   constructor(private http: HttpClient) { }
 
   getAllTrainings() {
-    return this.http.get<Training[]>('http://localhost:8080/api/private/trainings');
+    return this.http.get<Training[]>(this.baseUrl + '/private/trainings');
   }
 
   getTraining(id: number) {
-    return this.http.get<Training>('http://localhost:8080/api/private/trainings/' + id);
+    return this.http.get<Training>(this.baseUrl + '/private/trainings/' + id);
   }
 
   deleteTraining(id: number) {
-    return this.http.delete('http://localhost:8080/api/admin/private/trainings/' + id);
+    return this.http.delete(this.baseUrl + '/admin/private/trainings/' + id);
   }
 
   updateTraining(training: Training) {
-    return this.http.put('http://localhost:8080/api/admin/private/trainings/' + training.id, training);
+    return this.http.put(this.baseUrl + '/admin/private/trainings/' + training.id, training);
   }
 
   createTraining(training: Training) {
-    return this.http.post('http://localhost:8080/api/admin/private/trainings', training);
+    return this.http.post(this.baseUrl + '/admin/private/trainings', training);
   }
 
 }

@@ -11,21 +11,16 @@ CREATE OR REPLACE FUNCTION reduceInvoice() RETURNS trigger AS $reduceInvoice$
         FROM course
         WHERE OLD."CourseId" = course.id;
 
-        RAISE NOTICE 'Prix : %', currentPrice;
-        RAISE NOTICE 'Training : %', currentTrainingId;
-        RAISE NOTICE 'User : %', OLD."UserId";
-        RAISE NOTICE 'OLD.CourseId : %', OLD."CourseId";
-
         -- Réduction du prix de la facture
         UPDATE invoice SET price = price - currentPrice
         WHERE "TrainingId" = currentTrainingId
-        AND "UserId" = OLD."UserId";
+        AND "MemberId" = OLD."MemberId";
 
         -- Récupération de la facture (pour la supprimer si le prix est de 0)
         SELECT price, id INTO currentInvoicePrice, currentInvoiceId
         FROM invoice
         WHERE "TrainingId" = currentTrainingId
-        AND "UserId" = OLD."UserId";
+        AND "MemberId" = OLD."MemberId";
 
         -- Si le prix est 0, supprimer la facture
         IF (currentInvoicePrice = 0) THEN
