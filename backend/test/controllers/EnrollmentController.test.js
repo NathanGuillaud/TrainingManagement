@@ -59,6 +59,7 @@ beforeAll(async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
   await member.setAuthorities(roleObj);
 

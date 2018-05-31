@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message: 'Pas de jeton présent dans l\'entête de requête' });
   }
 
-  return JWTService().verify(tokenToVerify, (err, thisToken) => {
+  return JWTService().verify(tokenToVerify, '', (err, thisToken) => {
     if (err) return res.status(401).json({ err });
     req.token = thisToken;
     return next();

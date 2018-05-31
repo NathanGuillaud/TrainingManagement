@@ -1,28 +1,30 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top " role="navigation">
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li>
-                <a class="nav-link" [routerLink]="['/']">Menu</a>
-            </li>
-            <li>
-                <a class="nav-link" [routerLink]="['/trainings']">Stages</a>
-            </li>
-            <li>
-                <a class="nav-link" [routerLink]="['/enrollments/enrollment-list']">Inscriptions</a>
-            </li>
-            <li>
-                <a class="nav-link" [routerLink]="['/invoices']">Factures</a>
-            </li>
-        </ul>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="nav-link" [routerLink]="['/']">Menu</a>
+                </li>
+                <li>
+                    <a class="nav-link" [routerLink]="['/trainings']">Stages</a>
+                </li>
+                <li>
+                    <a class="nav-link" [routerLink]="['/enrollments/enrollment-list']">Inscriptions</a>
+                </li>
+                <li>
+                    <a class="nav-link" [routerLink]="['/invoices']">Factures</a>
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-primary pull-right" *ngIf="isLoggedIn$ | async" [routerLink]="['/login']">Se déconnecter</button>
+        <button class="btn btn-primary pull-right" *ngIf="!isLoggedIn$ | async" [routerLink]="['/login']">Se connecter</button>
     </div>
-    <button class="btn btn-primary pull-right" *ngIf="isLoggedIn$ | async" [routerLink]="['/login']">Se déconnecter</button>
-    <button class="btn btn-primary pull-right" *ngIf="!isLoggedIn$ | async" [routerLink]="['/login']">Se connecter</button>
 </nav>
 <div class="alerting">
     <app-alert></app-alert>

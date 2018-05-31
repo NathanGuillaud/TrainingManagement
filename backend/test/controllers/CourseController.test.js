@@ -70,6 +70,7 @@ test('Course | create', async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
   await member.setAuthorities(roleObj);
 
@@ -127,6 +128,7 @@ test('Course | get all', async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
   await member.setAuthorities(roleObj);
 
@@ -178,6 +180,7 @@ test('Course | get all by training id', async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
   await member.setAuthorities(roleObj);
 

@@ -28,7 +28,6 @@ const Member = sequelize.define('Member', {
   },
   email: {
     type: Sequelize.STRING,
-    unique: true,
   },
   enabled: {
     type: Sequelize.BOOLEAN,

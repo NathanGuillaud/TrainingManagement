@@ -32,6 +32,7 @@ test('Member | create', async () => {
       password: 'securepassword',
       firstname: 'Martin',
       lastname: 'Dupont',
+      enabled: true,
       // password2: 'securepassword',
     })
     .expect(200);
@@ -53,6 +54,7 @@ test('Member | login', async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
 
   const res = await request(api)
@@ -86,6 +88,7 @@ test('Member | get all (auth)', async () => {
     password: 'securepassword',
     firstname: 'Martin',
     lastname: 'Dupont',
+    enabled: true,
   });
   await member.setAuthorities(roleObj);
 
