@@ -5,7 +5,7 @@ const bcryptService = require('../services/bcrypt.service');
 
 // Mail config
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.heroku.com/api' : 'http://localhost:8080/api';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const send = require('gmail-send')({
   user: process.env.MAIL_USER,
   pass: process.env.MAIL_PASSWORD,
