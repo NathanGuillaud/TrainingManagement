@@ -17,7 +17,7 @@ const InvoiceController = () => {
       return res.status(200).json(invoices);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 

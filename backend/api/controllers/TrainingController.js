@@ -16,10 +16,10 @@ const TrainingController = () => {
         city: body.city,
         postalCode: body.postalCode,
       });
-      return res.status(200).json(training);
+      return res.status(201).json(training);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -55,16 +55,16 @@ const TrainingController = () => {
           );
         } catch (err) {
           console.log(err);
-          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
         }
         return res.status(200).json({ training });
       } catch (err) {
         console.log(err);
-        return res.status(400).json({ message: 'Exemple non trouvé.' });
+        return res.status(404).json({ message: 'Erreur - Stage inexistant.' });
       }
     }
 
-    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
   };
 
   // Récupération d'un exemple
@@ -76,7 +76,7 @@ const TrainingController = () => {
       return res.status(200).json(training);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -92,7 +92,7 @@ const TrainingController = () => {
       return res.status(200).json(training);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -103,7 +103,7 @@ const TrainingController = () => {
       return res.status(200).json(training);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 

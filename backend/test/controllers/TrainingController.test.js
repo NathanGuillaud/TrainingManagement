@@ -74,7 +74,7 @@ test('Training | create', async () => {
       city: 'TEST CITY',
       postalCode: '01234',
     })
-    .expect(200);
+    .expect(201);
   expect(res2.body).toBeTruthy();
 
   const training = await Training.findById(res2.body.id);

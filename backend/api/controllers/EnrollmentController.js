@@ -17,17 +17,17 @@ const EnrollmentController = () => {
             CourseId: courseId,
             MemberId: memberId,
           });
-          return res.status(200).json(enrollment);
+          return res.status(201).json(enrollment);
         } catch (err) {
           console.log(err);
-          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
         }
       } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+        return res.status(404).json({ message: 'Erreur - Séance non trouvée.' });
       }
     } catch (err) {
-      return res.status(404).json({ message: 'Erreur - utilisateur non trouvé' });
+      return res.status(404).json({ message: 'Erreur - Membre non trouvé.' });
     }
   };
 
@@ -43,7 +43,7 @@ const EnrollmentController = () => {
       return res.status(200).json(enrollment);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -73,7 +73,7 @@ const EnrollmentController = () => {
       return res.status(200).json(enrollments);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -92,12 +92,9 @@ const EnrollmentController = () => {
       return res.status(200).json(enrollments);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
-
-  // Liste des inscriptions
-  // TODO
 
   return {
     create,

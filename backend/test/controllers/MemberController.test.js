@@ -35,7 +35,7 @@ test('Member | create', async () => {
       enabled: true,
       // password2: 'securepassword',
     })
-    .expect(200);
+    .expect(201);
 
   expect(res.body.member).toBeTruthy();
 

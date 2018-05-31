@@ -66,18 +66,18 @@ const MemberController = () => {
           console.log('Mail envoyé: err:', errtk, '; res:', restk);
         });
 
-        return res.status(200).json({ member });
+        return res.status(201).json({ member });
       } catch (err) {
         console.log(err);
         // L'utilisateur existe déjà
         if (err.name === 'SequelizeUniqueConstraintError') {
-          return res.status(409).json({ message: 'Cet utilisateur ou ce mail existe déjà.' });
+          return res.status(409).json({ message: 'Erreur - Ce membre ou ce mail existe déjà.' });
         }
         // Pour tous les autres cas
         return res.status(500).json({ message: err });
       }
     } else {
-      return res.status(500).json({ message: 'Cet utilisateur ne peut pas être créé - ROLE_USER inexistant' });
+      return res.status(404).json({ message: 'Erreur - Ce membre ne peut pas être créé - ROLE_USER inexistant.' });
     }
   };
 
@@ -101,10 +101,6 @@ const MemberController = () => {
             username,
           },
         });
-        // Utilisateur non trouvé
-        if (!member) {
-          return res.status(400).json({ message: 'Utilisateur inconnu.' });
-        }
 
         // Utilisateur trouvé, on vérifie s'il est actif
         if (member.enabled) {
@@ -128,17 +124,14 @@ const MemberController = () => {
             return res.status(200).json({ token });
           }
         } else {
-          return res.status(401).json({ message: 'Accès non autorisé - utilisateur inactif' });
+          return res.status(403).json({ message: 'Erreur - Accès non autorisé - membre inactif.' });
         }
-
-        // Utilisateur trouvé mais mot de passe erroné
-        return res.status(401).json({ message: 'Accès non autorisé' });
       } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+        return res.status(404).json({ message: 'Erreur - Membre inexistant.' });
       }
     }
-    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
   };
 
   // Validation du token JWT
@@ -147,7 +140,7 @@ const MemberController = () => {
 
     authService().verify(token, (err) => {
       if (err) {
-        return res.status(401).json({ isvalid: false, err: 'Jeton invalide !' });
+        return res.status(401).json({ isvalid: false, err: 'Erreur - Jeton invalide.' });
       }
 
       return res.status(200).json({ isvalid: true });
@@ -162,11 +155,11 @@ const MemberController = () => {
       return res.status(200).json({ members });
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
-  // Validate registration by mail
+  // Validation de l'inscription par mail
   const verifyAccount = async (req, res) => {
     const { token, username } = req.query;
     // Recherche de l'utilisateur
@@ -196,21 +189,21 @@ const MemberController = () => {
                 where: { username },
               },
             );
-            return res.status(200).json({ message: 'Votre compte a été activé' });
+            return res.status(200).json({ message: 'Erreur - Votre compte a été activé.' });
           } catch (err) {
             console.log(err);
-            return res.status(404).json({ message: 'Votre compte n\'a pas pu être activé - problème lors de la mise à jour' });
+            return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
           }
         } else {
-          return res.status(422).json({ message: 'Votre compte est déjà activé' });
+          return res.status(409).json({ message: 'Erreur - Votre compte est déjà activé.' });
         }
       }
     } catch (err) {
       console.log(err);
-      return res.status(404).json({ message: 'Votre compte n\'a pas pu être activé - utilisateur non trouvé' });
+      return res.status(404).json({ message: 'Erreur - Membre existant.' });
     }
 
-    return res.status(500).json({ message: 'Votre compte n\'a pas pu être activé' });
+    return res.status(500).json({ message: 'Erreur - Votre compte n\'a pas pu être activé.' });
   };
 
   return {

@@ -100,7 +100,7 @@ test('Course | create', async () => {
       price: 7.5,
       TrainingId: trainingObj.id,
     })
-    .expect(200);
+    .expect(201);
   expect(res2.body).toBeTruthy();
 
   const course = await Course.findById(res2.body.id);
@@ -208,7 +208,7 @@ test('Course | get all by training id', async () => {
       price: 8,
       TrainingId: 1,
     })
-    .expect(200); // il s'attend à ce que le code de retour soit 200
+    .expect(201); // il s'attend à ce que le code de retour soit 201
 
   expect(res2.body).toBeTruthy();
 

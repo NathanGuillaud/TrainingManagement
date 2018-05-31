@@ -116,7 +116,7 @@ test('Enrollment | create', async () => {
     .set('Authorization', `Bearer ${res.body.token}`)
     .set('Content-Type', 'application/json')
     .send({})
-    .expect(200);
+    .expect(201);
   expect(res2.body).toBeTruthy();
 
   const enrollment = await Enrollment.findById(res2.body.id);

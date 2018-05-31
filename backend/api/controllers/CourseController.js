@@ -17,14 +17,14 @@ const CourseController = () => {
           price: body.price,
           TrainingId: trainingId,
         });
-        return res.status(200).json(course);
+        return res.status(201).json(course);
       } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
       }
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(404).json({ message: 'Erreur - Stage non trouvé pour associer la séance.' });
     }
   };
 
@@ -59,22 +59,22 @@ const CourseController = () => {
           );
         } catch (err) {
           console.log(err);
-          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
         }
         try {
           course = await Course.findById(id);
         } catch (err) {
           console.log(err);
-          return res.status(400).json({ message: 'Séance non trouvée après mise à jour.' });
+          return res.status(404).json({ message: 'Erreur - Séance non trouvée après mise à jour.' });
         }
         return res.status(200).json(course);
       } catch (err) {
         console.log(err);
-        return res.status(400).json({ message: 'Séance non trouvée.' });
+        return res.status(404).json({ message: 'Erreur - Séance non trouvée.' });
       }
     }
 
-    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
   };
 
   // Récupération d'une course
@@ -86,7 +86,7 @@ const CourseController = () => {
       return res.status(200).json(course);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(404).json({ message: 'Erreur - Séance non trouvée.' });
     }
   };
 
@@ -99,10 +99,10 @@ const CourseController = () => {
           id,
         },
       });
-      return res.status(200).json(course);
+      return res.status(201).json(course);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -113,7 +113,7 @@ const CourseController = () => {
       return res.status(200).json(courses);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
@@ -129,7 +129,7 @@ const CourseController = () => {
       return res.status(200).json(courses);
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
   };
 
