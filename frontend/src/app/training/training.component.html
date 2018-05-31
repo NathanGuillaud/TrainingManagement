@@ -1,7 +1,7 @@
 <h1>Liste des stages
   <button class="btn btn-sm btn-success" [hidden]="!isAdmin" [routerLink]="['/trainings/training-create']">Créer</button>
 </h1>
-<table class="table">
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -32,6 +32,7 @@
 </span>
 
 <div [hidden]="!courseEnabled">
+<hr>
   <h2>Séances du stage {{ currentTraining.name }}
     <button class="btn btn-sm btn-success" type="button" (click)="addComponent(currentTraining, true)">Créer</button>
     <button class="btn btn-sm btn-primary" type="button" (click)="closeComponents()">Fermer</button>

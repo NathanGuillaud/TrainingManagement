@@ -7,12 +7,14 @@ import { TrainingService } from './training.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TrainingEditComponent } from './training-edit/training-edit.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ],
   declarations: [
     TrainingComponent,

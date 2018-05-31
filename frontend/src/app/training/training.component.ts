@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { CourseComponent } from './../course/course.component';
 import { ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { CourseService } from './../course/course.service';
@@ -22,6 +23,9 @@ export class TrainingComponent implements OnInit {
   currentTraining: Training = new Training(0, '', '', '', '', 0);
   // pour afficher ou non les courses
   courseEnabled = false;
+  // propriétés pour datatables
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   @ViewChild('viewContainerRef', { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -34,23 +38,38 @@ export class TrainingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dtTrigger.next();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.10.16/i18n/French.json'
+      },
+      lengthMenu: [[5, 10, 15, -1], [5, 10, 15, 'Tous']],
+      columnDefs: [{
+        targets: [3, 4],
+        orderable: false,
+      }]
+    };
     this.loadAllTrainings();
     this.isAdmin = this.authService.isAdmin();
   }
 
   private loadAllTrainings() {
     this.trainingService.getAllTrainings().subscribe(
-      results => { this.trainings = results; },
+      results => {
+        this.trainings = results;
+        this.dtTrigger.next();
+      },
       error => {
         this.alertService.error(error.status, error.error.message);
-    });
+      });
   }
 
   private deleteTraining(id) {
     this.trainingService.deleteTraining(id).subscribe(() => { this.loadAllTrainings(); },
       error => {
         this.alertService.error(error.status, error.error.message);
-    });
+      });
   }
 
   // Call API to load courses and then add dynamic components
@@ -94,7 +113,7 @@ export class TrainingComponent implements OnInit {
         courseComponent = this.container.createComponent(component);
         courseComponent.instance.refChild = courseComponent;
         courseComponent.instance.course = course;
-     });
+      });
     }
   }
 
