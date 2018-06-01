@@ -6,6 +6,8 @@ const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
 const Sequelize = require('sequelize');
 
+const { Op } = Sequelize;
+
 // Mail config
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.herokuapp.com/api' : 'http://localhost:8080/api';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -288,7 +290,6 @@ const MemberController = () => {
         courses.forEach((course) => {
           coursesIds.push(course.id);
         });
-        const { Op } = Sequelize.Op;
         const enrollments = await Enrollment.findAll({
           where: {
             CourseId: {
@@ -296,8 +297,6 @@ const MemberController = () => {
             },
           },
         });
-        console.log('COURSES IDs');
-        console.log(coursesIds);
         // Récupération des membres correspondants aux inscriptions
         try {
           // Tableau des IDs des membres dans les inscriptions
@@ -318,8 +317,6 @@ const MemberController = () => {
             offset,
             limit,
           });
-          console.log('MEMBERS IDs');
-          console.log(membersIds);
           const membersCount = membersIds.length;
           return res.status(200).json({ membersCount, members });
         } catch (err) {

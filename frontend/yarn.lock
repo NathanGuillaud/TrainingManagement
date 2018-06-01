@@ -159,6 +159,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@auth0/angular-jwt@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@auth0/angular-jwt/-/angular-jwt-1.2.0.tgz#cfac04fe3f93e36ab9881d469df2c0556f2e7392"
+  dependencies:
+    url "^0.11.0"
+
 "@compone/class@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@compone/class/-/class-1.1.1.tgz#cbe6225ca123894769c8cb65b49430bd8dea472a"
@@ -393,10 +399,6 @@ amqplib@^0.5.2:
 angular-datatables@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/angular-datatables/-/angular-datatables-5.1.0.tgz#703f24b895f9e25cd70684c4099acc25efa1411a"
-
-angular2-jwt@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/angular2-jwt/-/angular2-jwt-0.2.3.tgz#54efdda3ceedba85f6a37b165f22ac22b8adf021"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -4835,6 +4837,10 @@ ngrok@*:
     request "^2.83.0"
     request-promise-native "^1.0.5"
     uuid "^3.0.0"
+
+ngx-pagination@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-3.1.1.tgz#fcde5cb5fd4a1bd6aa785ff062a55f3deefcd3ac"
 
 no-case@^2.2.0:
   version "2.3.2"

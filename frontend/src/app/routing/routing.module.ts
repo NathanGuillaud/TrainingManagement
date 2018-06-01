@@ -11,6 +11,7 @@ import { TrainingEditComponent } from '../training/training-edit/training-edit.c
 import { TrainingCreateComponent } from '../training/training-create/training-create.component';
 import { EnrollmentComponent } from '../enrollment/enrollment.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
+import { TrainingMembersComponent } from '../training-members/training-members.component';
 
 const routes: Routes = [
     // Home
@@ -23,7 +24,15 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
 
     // Trainings
-    { path: 'trainings', component: TrainingComponent, canActivate: [AuthenticationGuard] },
+    {
+        path: 'trainings', component: TrainingComponent, canActivate: [AuthenticationGuard],
+    },
+    {
+        path: 'trainings/training-create',
+        component: TrainingCreateComponent,
+        canActivate: [AuthenticationGuard],
+        data: { expectedRole: 'ADMIN' }
+    },
     {
         path: 'trainings/training-edit/:id',
         component: TrainingEditComponent,
@@ -31,8 +40,8 @@ const routes: Routes = [
         data: { expectedRole: 'ADMIN' }
     },
     {
-        path: 'trainings/training-create',
-        component: TrainingCreateComponent,
+        path: 'trainings/member-list/:id',
+        component: TrainingMembersComponent,
         canActivate: [AuthenticationGuard],
         data: { expectedRole: 'ADMIN' }
     },

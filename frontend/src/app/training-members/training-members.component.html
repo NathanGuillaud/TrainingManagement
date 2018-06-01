@@ -1,0 +1,28 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>Participants du stage
+    <button [routerLink]="['/trainings']" class="btn btn-lg btn-success">Retour</button>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    <input [(ngModel)]="searchText" placeholder="rechercher" class="form-control">
+  </div>
+</div>
+<div class="card-deck">
+  <a *ngFor="let member of trainingMembers |  paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: trainingMembersCount } |  filter:{ firstname: searchText, lastname: searchText, email: searchText } : false">
+    <div class="card mb-3">
+      <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{member.firstname}} {{member.lastname}}</h5>
+        <p class="card-text">{{member.email}}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"></small>
+      </div>
+    </div>
+  </a>
+</div>
+<div>
+  <pagination-controls (pageChange)="getPage($event)" previousLabel="" nextLabel=""></pagination-controls>
+</div>

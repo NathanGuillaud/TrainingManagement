@@ -1,3 +1,4 @@
+import { Member } from './../model/member';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Training } from '../model/training';
@@ -30,6 +31,11 @@ export class TrainingService {
 
   createTraining(training: Training) {
     return this.http.post(this.baseUrl + '/admin/private/trainings', training);
+  }
+
+  getAllMembersByTrainingId(trainingId: number, offset, limit) {
+    return this.http.get<Member[]>(
+      this.baseUrl + '/admin/private/trainings/' + trainingId + '/members?offset=' + offset + '&limit=' + limit);
   }
 
 }

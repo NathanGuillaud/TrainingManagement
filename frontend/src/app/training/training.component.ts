@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { CourseComponent } from './../course/course.component';
 import { ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
@@ -9,6 +10,7 @@ import { AlertService } from './../alert/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../model/training';
 import { Course } from '../model/course';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-training',
@@ -34,7 +36,8 @@ export class TrainingComponent implements OnInit {
     private alertService: AlertService,
     private authService: AuthenticationService,
     private courseService: CourseService,
-    private resolver: ComponentFactoryResolver
+    private resolver: ComponentFactoryResolver,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -58,7 +61,6 @@ export class TrainingComponent implements OnInit {
     this.trainingService.getAllTrainings().subscribe(
       results => {
         this.trainings = results;
-        this.dtTrigger.next();
       },
       error => {
         this.alertService.error(error.status, error.error.message);
@@ -66,7 +68,9 @@ export class TrainingComponent implements OnInit {
   }
 
   private deleteTraining(id) {
-    this.trainingService.deleteTraining(id).subscribe(() => { this.loadAllTrainings(); },
+    this.trainingService.deleteTraining(id).subscribe(() => {
+      this.loadAllTrainings();
+    },
       error => {
         this.alertService.error(error.status, error.error.message);
       });
