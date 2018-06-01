@@ -1,10 +1,13 @@
 const Member = require('../models/Member');
 const Role = require('../models/Role');
+const Course = require('../models/Course');
+const Enrollment = require('../models/Enrollment');
 const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
+const Sequelize = require('sequelize');
 
 // Mail config
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.heroku.com/api' : 'http://localhost:8080/api';
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.herokuapp.com/api' : 'http://localhost:8080/api';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const send = require('gmail-send')({
   user: process.env.MAIL_USER,
@@ -147,15 +150,49 @@ const MemberController = () => {
     });
   };
 
-  // Liste des utilisateurs
+  // Liste des membres
   const getAll = async (req, res) => {
-    try {
-      const members = await Member.findAll();
+    // On postionne des valeurs par défaut pour la pagination
+    // On ne retourne au maximum que defaultLimit enregistrements
+    const defaultOffset = 0;
+    const defaultLimit = 10;
+    let { offset, limit } = req.query;
 
-      return res.status(200).json({ members });
+    // On récupère les paramètres
+    if (req.query) {
+      // On positionne l'offset par défaut si non présent
+      if (!offset) {
+        offset = defaultOffset;
+      }
+
+      // On positionne la limite par défaut si non présent
+      if (!limit) {
+        limit = defaultLimit;
+      }
+
+      // Si la limite dépasse le seul max, on met la valeur par défaut
+      if (limit > defaultLimit) {
+        limit = defaultLimit;
+      }
+    } else {
+      // Si pas de paramètres, on met les valeurs par défaut
+      offset = defaultOffset;
+      limit = defaultLimit;
+    }
+    try {
+      // Renvoyer le nombre total de membres pour connaitre le nombre de pages du tableau
+      const membersCount = await Member.count();
+
+      try {
+        const members = await Member.findAll({ offset, limit });
+        return res.status(200).json({ membersCount, members });
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+      }
     } catch (err) {
       console.log(err);
-      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
     }
   };
 
@@ -206,12 +243,106 @@ const MemberController = () => {
     return res.status(500).json({ message: 'Erreur - Votre compte n\'a pas pu être activé.' });
   };
 
+  // Liste des membres d'un stage (avec pagination)
+  const getAllByTrainingId = async (req, res) => {
+    // On postionne des valeurs par défaut pour la pagination
+    // On ne retourne au maximum que defaultLimit enregistrements
+    const defaultOffset = 0;
+    const defaultLimit = 10;
+    let { offset, limit } = req.query;
+
+    // On récupère les paramètres
+    if (req.query) {
+      // On positionne l'offset par défaut si non présent
+      if (!offset) {
+        offset = defaultOffset;
+      }
+
+      // On positionne la limite par défaut si non présent
+      if (!limit) {
+        limit = defaultLimit;
+      }
+
+      // Si la limite dépasse le seul max, on met la valeur par défaut
+      if (limit > defaultLimit) {
+        limit = defaultLimit;
+      }
+    } else {
+      // Si pas de paramètres, on met les valeurs par défaut
+      offset = defaultOffset;
+      limit = defaultLimit;
+    }
+
+    // Récupération des séances du training
+    const { trainingId } = req.params;
+    try {
+      const courses = await Course.findAll({
+        where: {
+          TrainingId: trainingId,
+        },
+      });
+      // Recherche des inscriptions pour les séances avec le memberId
+      try {
+        // Tableau des IDs des séances
+        const coursesIds = [];
+        courses.forEach((course) => {
+          coursesIds.push(course.id);
+        });
+        const { Op } = Sequelize.Op;
+        const enrollments = await Enrollment.findAll({
+          where: {
+            CourseId: {
+              [Op.in]: coursesIds,
+            },
+          },
+        });
+        console.log('COURSES IDs');
+        console.log(coursesIds);
+        // Récupération des membres correspondants aux inscriptions
+        try {
+          // Tableau des IDs des membres dans les inscriptions
+          const membersIds = [];
+          enrollments.forEach((enrollment) => {
+            // Rajouter l'ID du membre que s'il n'est pas déjà dans le tableau
+            if (membersIds.indexOf(enrollment.MemberId) === -1) {
+              membersIds.push(enrollment.MemberId);
+            }
+          });
+          // Récupération des membres grâce au table d'IDs
+          const members = await Member.findAll({
+            where: {
+              id: {
+                [Op.in]: membersIds,
+              },
+            },
+            offset,
+            limit,
+          });
+          console.log('MEMBERS IDs');
+          console.log(membersIds);
+          const membersCount = membersIds.length;
+          return res.status(200).json({ membersCount, members });
+        } catch (err) {
+          console.log(err);
+          return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée' });
+        }
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
+    }
+  };
+
   return {
     register,
     login,
     validate,
     getAll,
     verifyAccount,
+    getAllByTrainingId,
   };
 };
 

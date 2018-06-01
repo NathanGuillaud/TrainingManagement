@@ -6,6 +6,7 @@ const privateAdminRoutes = {
   'PUT /trainings/:id': 'TrainingController.update',
   'DELETE /trainings/:id': 'TrainingController.remove',
   'POST /trainings': 'TrainingController.create',
+  'GET /trainings/:trainingId/members': 'MemberController.getAllByTrainingId',
 
   // Gestion des courses
   'PUT /courses/:id': 'CourseController.update',
