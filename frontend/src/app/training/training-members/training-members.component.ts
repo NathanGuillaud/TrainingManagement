@@ -1,9 +1,9 @@
-import { Training } from './../model/training';
-import { AlertService } from './../alert/alert.service';
-import { TrainingService } from './../training/training.service';
+import { Training } from './../../model/training';
+import { AlertService } from './../../alert/alert.service';
+import { TrainingService } from './../../training/training.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Member } from '../model/member';
+import { Member } from '../../model/member';
 
 @Component({
   selector: 'app-training-members',

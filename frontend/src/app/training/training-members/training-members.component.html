@@ -5,12 +5,13 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-3">
+  <!-- <div class="col-sm-3">
     <input [(ngModel)]="searchText" placeholder="Rechercher" class="form-control">
-  </div>
+  </div> -->
 </div>
 <div class="card-deck">
-  <a *ngFor="let member of trainingMembers |  paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: trainingMembersCount } |  filter:{ firstname: searchText, lastname: searchText, email: searchText } : false">
+  <a *ngFor="let member of trainingMembers |  paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: trainingMembersCount } : false">
+    <!-- |  filter:{ firstname: searchText, lastname: searchText, email: searchText } -->
     <div class="card mb-3">
       <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
       <div class="card-body">

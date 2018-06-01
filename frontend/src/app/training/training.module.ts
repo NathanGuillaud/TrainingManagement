@@ -1,4 +1,3 @@
-import { FilterPipe } from './../shared/filter.pipe';
 import { CourseService } from './../course/course.service';
 import { TrainingCreateComponent } from './training-create/training-create.component';
 import { NgModule } from '@angular/core';
@@ -9,8 +8,10 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TrainingEditComponent } from './training-edit/training-edit.component';
 import { DataTablesModule } from 'angular-datatables';
-import { TrainingMembersComponent } from '../training-members/training-members.component';
+import { TrainingMembersComponent } from '../training/training-members/training-members.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { FilterPipe } from '../shared/filter.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -18,14 +19,14 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RouterModule,
     FormsModule,
     DataTablesModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule
   ],
   declarations: [
     TrainingComponent,
     TrainingCreateComponent,
     TrainingEditComponent,
     TrainingMembersComponent,
-    FilterPipe
   ],
   exports: [
     TrainingComponent,

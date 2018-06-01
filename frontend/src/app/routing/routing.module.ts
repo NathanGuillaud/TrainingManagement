@@ -11,7 +11,7 @@ import { TrainingEditComponent } from '../training/training-edit/training-edit.c
 import { TrainingCreateComponent } from '../training/training-create/training-create.component';
 import { EnrollmentComponent } from '../enrollment/enrollment.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
-import { TrainingMembersComponent } from '../training-members/training-members.component';
+import { TrainingMembersComponent } from '../training/training-members/training-members.component';
 
 const routes: Routes = [
     // Home

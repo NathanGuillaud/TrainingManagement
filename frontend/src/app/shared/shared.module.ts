@@ -8,6 +8,9 @@ import { CommonModule } from '@angular/common';
   ],
   declarations: [
     FilterPipe
-  ]
+  ],
+  exports: [
+    FilterPipe
+  ],
 })
 export class SharedModule { }
