@@ -228,7 +228,7 @@ const MemberController = () => {
                 where: { username },
               },
             );
-            return res.status(200).json({ message: 'Erreur - Votre compte a été activé.' });
+            return res.status(200).json({ message: 'Votre compte a été activé !' });
           } catch (err) {
             console.log(err);
             return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });

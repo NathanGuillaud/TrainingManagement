@@ -24,7 +24,7 @@ register() {
       .subscribe(
           data => {
               // set success message and pass true paramater to persist the message after redirecting to the login page
-              this.alertService.success(200, 'Création de compte effectuée.', true);
+              this.alertService.success(200, 'Création de compte effectuée. Un mail d\'activation vous a été envoyé.', true);
               this.router.navigate(['/login']);
           },
           error => {
