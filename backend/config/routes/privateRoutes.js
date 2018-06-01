@@ -2,6 +2,7 @@ const privateRoutes = {
   // Gestion des trainings
   'GET /trainings': 'TrainingController.getAll',
   'GET /trainings/:id': 'TrainingController.get',
+  'GET /trainings/:trainingId/members': 'MemberController.getAllByTrainingId',
 
   // Gestion des courses
   'GET /courses': 'CourseController.getAll',

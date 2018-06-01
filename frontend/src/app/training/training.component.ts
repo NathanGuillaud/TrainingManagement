@@ -61,6 +61,7 @@ export class TrainingComponent implements OnInit {
     this.trainingService.getAllTrainings().subscribe(
       results => {
         this.trainings = results;
+        // this.dtTrigger.next();
       },
       error => {
         this.alertService.error(error.status, error.error.message);

@@ -43,7 +43,6 @@ const routes: Routes = [
         path: 'trainings/member-list/:id',
         component: TrainingMembersComponent,
         canActivate: [AuthenticationGuard],
-        data: { expectedRole: 'ADMIN' }
     },
 
     // Enrollments

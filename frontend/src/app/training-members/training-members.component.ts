@@ -14,10 +14,10 @@ export class TrainingMembersComponent implements OnInit {
 
   trainingMembers: Member[] = [];
   trainingMembersCount: number;
-  currentTraining: Training;
+  currentTrainingName: string;
   // propriétés pour la pagination
   currentPage = 1;
-  itemsPerPage = 1;
+  itemsPerPage = 4;
 
   constructor(
     private router: Router,
@@ -27,7 +27,7 @@ export class TrainingMembersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currentTraining = this.trainingService.trainingStorage;
+    this.getTrainingName();
     this.getMembersByTrainingId(this.route.snapshot.params.id, 0, this.itemsPerPage);
   }
 
@@ -43,6 +43,13 @@ export class TrainingMembersComponent implements OnInit {
   getPage(page: number) {
     this.currentPage = page;
     this.getMembersByTrainingId(this.route.snapshot.params.id, (this.currentPage - 1) * this.itemsPerPage, this.itemsPerPage);
+  }
+
+  getTrainingName() {
+    this.trainingService.getTraining(this.route.snapshot.params.id).subscribe(
+      training => {
+        this.currentTrainingName = training.name;
+      });
   }
 
 }

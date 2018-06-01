@@ -1,12 +1,12 @@
-<div class="col-md-6 col-md-offset-3">
-  <h1>Participants du stage
+<div class="col-md-12 col-md-offset-3">
+  <h1>Liste des participants - {{currentTrainingName}}
     <button [routerLink]="['/trainings']" class="btn btn-lg btn-success">Retour</button>
   </h1>
 </div>
 
 <div class="row">
   <div class="col-sm-3">
-    <input [(ngModel)]="searchText" placeholder="rechercher" class="form-control">
+    <input [(ngModel)]="searchText" placeholder="Rechercher" class="form-control">
   </div>
 </div>
 <div class="card-deck">

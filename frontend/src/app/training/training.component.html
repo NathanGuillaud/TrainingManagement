@@ -8,6 +8,7 @@
       <th scope="col">Nom</th>
       <th scope="col">Description</th>
       <th [hidden]="!isAdmin" scope="col">Gestion</th>
+      <th scope="col">Participants</th>
       <th scope="col">Inscription</th>
     </tr>
   </thead>
@@ -18,12 +19,14 @@
       <td>{{training.description}}</td>
       <td [hidden]="!isAdmin">
         <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>
-        <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
+        <button class="btn btn-sm btn-warning" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
         <button class="btn btn-sm btn-success" type="button" [disabled]="courseEnabled" (click)="loadCourses(training)">Séances</button>
+      </td>
+      <td>
         <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/member-list', training.id]">Participants</button>
       </td>
       <td>
-        <button class="btn btn-sm btn-warning" [routerLink]="['/enrollments/enrollment-create']" (click)="saveTraining(training)">S'inscrire</button>
+        <button class="btn btn-sm btn-primary" [routerLink]="['/enrollments/enrollment-create']" (click)="saveTraining(training)">S'inscrire</button>
       </td>
     </tr>
   </tbody>
@@ -33,7 +36,7 @@
 </span>
 
 <div [hidden]="!courseEnabled">
-<hr>
+  <hr>
   <h2>Séances du stage {{ currentTraining.name }}
     <button class="btn btn-sm btn-success" type="button" (click)="addComponent(currentTraining, true)">Créer</button>
     <button class="btn btn-sm btn-primary" type="button" (click)="closeComponents()">Fermer</button>

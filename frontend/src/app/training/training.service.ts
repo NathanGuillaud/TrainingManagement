@@ -35,7 +35,7 @@ export class TrainingService {
 
   getAllMembersByTrainingId(trainingId: number, offset, limit) {
     return this.http.get<Member[]>(
-      this.baseUrl + '/admin/private/trainings/' + trainingId + '/members?offset=' + offset + '&limit=' + limit);
+      this.baseUrl + '/private/trainings/' + trainingId + '/members?offset=' + offset + '&limit=' + limit);
   }
 
 }

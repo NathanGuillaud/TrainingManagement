@@ -1,6 +1,6 @@
 <form class="form-sign text-center mt-5" name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
     <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1>Modification {{ training.id }}</h1>
+    <h1>Modification - {{ training.name }}</h1>
     <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !name.valid }" name="name" [(ngModel)]="training.name" placeholder="Nom" #name="ngModel" required autofocus />
     <small *ngIf="f.submitted && !name.valid" class="float-left text-danger">Le nom est obligatoire</small>
 
