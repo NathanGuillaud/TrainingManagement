@@ -17,23 +17,26 @@
         </div>
         <div class="form-group col-md-6">
             <label>Email *</label>
-            <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !email.valid }" name="email" [(ngModel)]="member.email"
+            <input class="form-control" email [ngClass]="{ 'has-error': f.submitted && !email.valid }" name="email" [(ngModel)]="member.email"
                 #email="ngModel" placeholder="Email" required />
             <small *ngIf="f.submitted && !email.valid" class="float-left text-danger">L'email est obligatoire</small>
+            <small *ngIf="email.errors?.email && email.touched" class="float-left text-danger">L'email est invalide</small>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label>Login *</label>
             <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !username.valid }" name="username" [(ngModel)]="member.username"
-                #username="ngModel" placeholder="Nom d'utilisateur" required />
+                #username="ngModel" placeholder="Nom d'utilisateur" pattern="[a-zA-Z0-9]*" required />
             <small *ngIf="f.submitted && !username.valid" class="float-left text-danger">Le nom d'utilisateur est obligatoire</small>
+            <small *ngIf="username.errors?.pattern" class="float-left text-danger">Le login ne doit contenir que des chiffres ou des lettres, sans espace</small>
         </div>
         <div class="form-group col-md-6">
             <label>Mot de passe *</label>
             <input class="form-control" type="password" [ngClass]="{ 'has-error': f.submitted && !password.valid }" name="password" [(ngModel)]="member.password"
-                #password="ngModel" placeholder="Mot de passe" required />
+                #password="ngModel" placeholder="Mot de passe" minlength="8" required />
             <small *ngIf="f.submitted && !password.valid" class="float-left text-danger">Le mot de passe est obligatoire</small>
+            <small *ngIf="password.errors?.minlength" class="float-left text-danger">Le mot de passe doit contenir au moins 8 caractères</small>
         </div>
     </div>
     <div class="form-row">
@@ -52,8 +55,11 @@
         <div class="form-group col-md-3">
             <label>Code postal</label>
             <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !postalCode.valid }" name="postalCode" [(ngModel)]="member.postalCode"
-                #postalCode="ngModel" placeholder="Code postal" />
+                #postalCode="ngModel" placeholder="Code postal" minlength="5" maxlength="5" pattern="[0-9]*"/>
             <small *ngIf="f.submitted && !postalCode.valid"></small>
+            <small *ngIf="postalCode.errors?.minlength" class="float-left text-danger">Le code postal doit contenir 5 caractères</small>
+            <small *ngIf="postalCode.errors?.maxlength" class="float-left text-danger">Le code postal doit contenir 5 caractères</small>
+            <small *ngIf="postalCode.errors?.pattern" class="float-left text-danger">Le code postal ne doit contenir que des chiffres</small>
         </div>
     </div>
     <div class="form-row">

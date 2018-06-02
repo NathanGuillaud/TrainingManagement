@@ -10,8 +10,4 @@ describe('EnrollmentService', () => {
       imports: [ HttpClientTestingModule]
     });
   });
-
-  // it('should be created', inject([EnrollmentService], (service: EnrollmentService) => {
-  //   expect(service).toBeTruthy();
-  // }));
 });

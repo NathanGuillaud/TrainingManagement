@@ -4,6 +4,9 @@ const YAML = require('yamljs');
 
 const swaggerDocument = YAML.load('./api/swagger/swagger.yaml');
 
+// Morgan (logs)
+const morgan = require('morgan')
+
 // Third-pary librairies
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -31,6 +34,9 @@ const databaseHandler = dbService(environment, true).start();
 
 // Utilisation de swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Morgan (logs)
+app.use(morgan('combined'));
 
 // Cross origin requests (CORS)
 app.use(cors());

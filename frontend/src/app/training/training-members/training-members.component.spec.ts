@@ -1,8 +1,8 @@
-import { AuthenticationModule } from './../authentication/authentication.module';
-import { TrainingModule } from './../training/training.module';
-import { AlertModule } from './../alert/alert.module';
+import { AuthenticationModule } from './../../authentication/authentication.module';
+import { TrainingModule } from './../../training/training.module';
+import { AlertModule } from './../../alert/alert.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MemberModule } from './../member/member.module';
+import { MemberModule } from './../../member/member.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrainingMembersComponent } from './training-members.component';
@@ -25,8 +25,4 @@ describe('TrainingMembersComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
 });

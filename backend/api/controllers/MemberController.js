@@ -5,11 +5,12 @@ const Enrollment = require('../models/Enrollment');
 const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
 const Sequelize = require('sequelize');
+const validator = require('email-validator');
 
 const { Op } = Sequelize;
 
 // Mail config
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https\u200B://ng-training-management.herokuapp.\u200Bcom/\u200Bapi' : 'http://localhost:8080/api';
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.herokuapp.com/api' : 'http://localhost:8080/api';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const send = require('gmail-send')({
   user: process.env.MAIL_USER,
@@ -21,6 +22,34 @@ const MemberController = () => {
   // L'utilisateur est créé avec le role ROLE_USER par défaut
   const register = async (req, res) => {
     const { body } = req;
+
+    // Contrôles
+    // username
+    let pattern = new RegExp('^[a-zA-Z0-9]*$');
+    let result = pattern.test(body.username);
+    if (!result) {
+      return res.status(422).json({ message: 'Erreur - Le nom d\'utilisateur est invalide.' });
+    }
+    // code postal
+    if (body.postalCode) {
+      pattern = new RegExp('^[0-9]*$');
+      result = pattern.test(body.postalCode);
+      if (!result) {
+        return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+      }
+
+      if (body.postalCode.length !== 5) {
+        return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+      }
+    }
+    // mot de passe
+    if (body.password.length < 8) {
+      return res.status(422).json({ message: 'Erreur - Le mot de passe est invalide.' });
+    }
+    // email
+    if (!validator.validate(body.email)) {
+      return res.status(422).json({ message: 'Erreur - Le mail est invalide.' });
+    }
 
     const roleUser = 'ROLE_USER';
     let roleObj = new Role();
@@ -66,7 +95,7 @@ const MemberController = () => {
           subject: 'Activation de votre compte',
           text: `Bonjour, 
           Merci de bien vouloir copier ce lien dans votre navigateur pour activer votre compte (valide pendant 24h)
-          ${baseUrl}/public\u200B/account\u200B/verify\u200B?token=\u200B${token}&\u200Busername=\u200B${member.username}`,
+          ${baseUrl}/public/account/verify?token=${token}&username=${member.username}`,
         }, (errtk, restk) => {
           console.log('Mail envoyé: err:', errtk, '; res:', restk);
         });
