@@ -6,11 +6,11 @@
 
 <div class="card-deck">
   <a *ngFor="let invoice of invoices">
-    <h2>{{invoice.Training.name}}</h2>
     <div class="card mb-3">
       <img class="card-img-top" src="../../assets/cheque.jpg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{invoice.price | currency:'EUR':'symbol'}}</h5>
+        <h5 class="card-title">{{invoice.Training.name}}</h5>
+        <p class="card-text">{{invoice.price | currency:'EUR':'symbol'}}</p>
       </div>
       <div class="card-footer">
         <small class="text-muted"></small>

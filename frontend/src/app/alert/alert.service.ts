@@ -89,7 +89,7 @@ export class AlertService {
                break;
             }
             case 403: {
-               newMessage = 'Vous n\'êtes pas autorisé à accéder à cette ressource.';
+               newMessage = 'Votre compte n\'est pas encore activé.';
                break;
             }
             default: {

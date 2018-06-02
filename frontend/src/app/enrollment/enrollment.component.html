@@ -1,12 +1,12 @@
 <div class="col-md-12 col-md-offset-3">
-  <h1>Séances du stage {{currentTraining.name}}
+  <h1>Séances - {{currentTraining.name}}
     <button [routerLink]="['/trainings']" class="btn btn-lg btn-success">Retour</button>
   </h1>
 </div>
 
 <div class="card-deck">
   <a *ngFor="let extendedCourse of extendedCourses">
-    <div (click)="enroll(extendedCourse)" class="card mb-3" [ngClass]="{'border-dark': !extendedCourse.isSelected, 'border-success': extendedCourse.isSelected}">
+    <div (click)="enroll(extendedCourse)" class="card mb-3" [ngClass]="{'bg-light': !extendedCourse.isSelected, 'text-white bg-success': extendedCourse.isSelected}">
       <img class="card-img-top" src="../../assets/seances.jpg" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{extendedCourse.day}}</h5>

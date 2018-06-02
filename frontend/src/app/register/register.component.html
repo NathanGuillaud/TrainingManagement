@@ -41,7 +41,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label>Addresse</label>
+            <label>Adresse</label>
             <input class="form-control" type="text" [ngClass]="{ 'has-error': f.submitted && !address.valid }" name="address" [(ngModel)]="member.address"
                 #address="ngModel" placeholder="Adresse" />
             <small *ngIf="f.submitted && !address.valid"></small>
