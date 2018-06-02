@@ -9,7 +9,7 @@ const Sequelize = require('sequelize');
 const { Op } = Sequelize;
 
 // Mail config
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://ng-training-management.herokuapp.com/api' : 'http://localhost:8080/api';
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https\u200B://ng-training\u200B-management.herokuapp.com/api' : 'http://localhost:8080/api';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const send = require('gmail-send')({
   user: process.env.MAIL_USER,
@@ -66,7 +66,7 @@ const MemberController = () => {
           subject: 'Activation de votre compte',
           text: `Bonjour, 
           Merci de bien vouloir copier ce lien dans votre navigateur pour activer votre compte (valide pendant 24h)
-          "${baseUrl}/public/account/verify?token=${token}&username=${member.username}"`,
+          ${baseUrl}/public/account/verify?token=${token}&username=${member.username}`,
         }, (errtk, restk) => {
           console.log('Mail envoyé: err:', errtk, '; res:', restk);
         });
