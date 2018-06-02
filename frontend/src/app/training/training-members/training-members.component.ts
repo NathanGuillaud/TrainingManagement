@@ -18,6 +18,7 @@ export class TrainingMembersComponent implements OnInit {
   // propriétés pour la pagination
   currentPage = 1;
   itemsPerPage = 4;
+  searchText: string;
 
   constructor(
     private router: Router,

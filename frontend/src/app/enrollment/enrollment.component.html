@@ -7,7 +7,7 @@
 <div class="card-deck">
   <a *ngFor="let extendedCourse of extendedCourses">
     <div (click)="enroll(extendedCourse)" class="card mb-3" [ngClass]="{'border-dark': !extendedCourse.isSelected, 'border-success': extendedCourse.isSelected}">
-      <img class="card-img-top" src="http://placehold.it/200x125" alt="Card image cap">
+      <img class="card-img-top" src="../../assets/seances.jpg" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{extendedCourse.day}}</h5>
         <p class="card-text">de {{extendedCourse.begin}} à {{extendedCourse.end}}</p>

@@ -19,11 +19,11 @@
       <td>{{training.description}}</td>
       <td [hidden]="!isAdmin">
         <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>
-        <button class="btn btn-sm btn-warning" [routerLink]="['/trainings/training-edit', training.id]">Modifier</button>
+        <button class="btn btn-sm btn-warning" [routerLink]="['/trainings/'+training.id+'/training-edit']">Modifier</button>
         <button class="btn btn-sm btn-success" type="button" [disabled]="courseEnabled" (click)="loadCourses(training)">Séances</button>
       </td>
       <td>
-        <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/member-list', training.id]">Participants</button>
+        <button class="btn btn-sm btn-primary" [routerLink]="['/trainings/'+training.id+'/member-list']">Participants</button>
       </td>
       <td>
         <button class="btn btn-sm btn-primary" [routerLink]="['/enrollments/enrollment-create']" (click)="saveTraining(training)">S'inscrire</button>

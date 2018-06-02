@@ -34,13 +34,13 @@ const routes: Routes = [
         data: { expectedRole: 'ADMIN' }
     },
     {
-        path: 'trainings/training-edit/:id',
+        path: 'trainings/:id/training-edit',
         component: TrainingEditComponent,
         canActivate: [AuthenticationGuard],
         data: { expectedRole: 'ADMIN' }
     },
     {
-        path: 'trainings/member-list/:id',
+        path: 'trainings/:id/member-list',
         component: TrainingMembersComponent,
         canActivate: [AuthenticationGuard],
     },
