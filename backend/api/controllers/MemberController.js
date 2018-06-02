@@ -105,7 +105,7 @@ const MemberController = () => {
         console.log(err);
         // L'utilisateur existe déjà
         if (err.name === 'SequelizeUniqueConstraintError') {
-          return res.status(409).json({ message: 'Erreur - Ce membre ou ce mail existe déjà.' });
+          return res.status(409).json({ message: 'Erreur - Ce login existe déjà.' });
         }
         // Pour tous les autres cas
         return res.status(500).json({ message: err });
