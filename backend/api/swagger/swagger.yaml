@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: "1.0.0"
+  version: "1.3.1"
   title: "Training Management"
   license:
     name: MIT
@@ -16,7 +16,7 @@ paths:
       tags:
         - members
       responses:
-        '200':
+        '201':
           description: An array of members
           content:
             application/json:    
@@ -44,8 +44,20 @@ paths:
       responses:
         '201':
           description: Null response
+        '404':
+          description: ROLE_USER not exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         '409':
           description: Member already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '422':
+          description: Invalid attribute
           content:
             application/json:
               schema:
@@ -69,14 +81,20 @@ paths:
             schema:
               $ref: '#/components/schemas/MemberCredentials'
       responses:
-        '200':
+        '201':
           description: Login successfull
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Token"
-        '401':
+        '403':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Member not exists
           content:
             application/json:
               schema:
@@ -122,12 +140,18 @@ paths:
             schema:
               $ref: '#/components/schemas/NewTraining'
       responses:
-        '200':
+        '201':
           description: Training sucessfully created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Training"
+        '422':
+          description: invalid postalCode
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         '500':
           description: unexpected error
           content:
@@ -191,7 +215,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Training"
-        '400':
+        '404':
           description: Training not found
           content:
             application/json:
@@ -230,6 +254,364 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /private/trainings/{trainingId}/member-list :
+    get:
+      summary: List all members for a training
+      security:
+        - token: []
+      tags:
+        - members
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: An array of members
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Members"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/members/{memberId}/courses/{courseId}/enrollments :
+    post:
+      summary: Create an enroll
+      security:
+        - token: []
+      tags:
+        - enrollments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEnrollment'
+      parameters:
+        - name: memberId
+          in: path
+          description: Member ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: courseId
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Enrollment successfully created
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+        '404':
+          description: Course or Member not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/members/{memberId}/trainings/{trainingId}/enrollments :
+    get:
+      summary: Get all enrollments by Member and Training
+      security:
+        - token: []
+      tags:
+        - enrollments
+      parameters:
+        - name: memberId
+          in: path
+          description: Member ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: courseId
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: An array of enrollments
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Enrollments"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/members/{memberId}/enrollments :
+    get:
+      summary: Get all enrollments by Member
+      security:
+        - token: []
+      tags:
+        - enrollments
+      parameters:
+        - name: memberId
+          in: path
+          description: Member ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: An array of enrollments
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Enrollments"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/enrollments/{enrollmentId} :
+    delete:
+      summary: Delete an enrollment
+      security:
+        - token: []
+      tags:
+        - enrollments
+      parameters:
+        - name: enrollmentId
+          in: path
+          description: Enrollment ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Enrollment sucessfully delete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enrollment"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/courses:
+    get:
+      summary: List all courses
+      security:
+        - token: []
+      tags:
+        - courses
+      responses:
+        '200':
+          description: An array of courses
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Courses"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/trainings/{trainingId}/courses :
+    get:
+      summary: Get all courses for a training
+      security:
+        - token: []
+      tags:
+        - courses
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: An array of courses
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Courses"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/courses/{courseId} :
+    get:
+      summary: Get a course
+      security:
+        - token: []
+      tags:
+        - courses
+      parameters:
+        - name: courseId
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Course sucessfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/private/trainings/{trainingId}/courses :
+    post:
+      summary: Create a course
+      security:
+        - token: []
+      tags:
+        - courses
+      parameters:
+        - name: trainingId
+          in: path
+          description: Training ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCourse'
+      responses:
+        '201':
+          description: Course successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Courses"
+        '404':
+          description: Training not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /admin/private/courses/{courseId} :
+    put:
+      summary: Update a course
+      security:
+        - token: []
+      tags:
+        - courses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCourse'
+      responses:
+        '201':
+          description: Course successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        '404':
+          description: Course not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a course
+      security:
+        - token: []
+      tags:
+        - courses
+      responses:
+        '201':
+          description: Course successfully removed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Courses"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /private/members/{memberId}/invoices :
+    get:
+      summary: Get all invoices by Member
+      security:
+        - token: []
+      tags:
+        - invoices
+      parameters:
+        - name: memberId
+          in: path
+          description: Member ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: An array of invoices
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Invoices"
+        '500':
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   securitySchemes:
     token:
@@ -249,6 +631,11 @@ components:
         - lastname
         - email
         - enabled
+        - address
+        - city
+        - postalCode
+        - birthDate
+        - gender
         - createdAt
         - modifiedAt
       properties:
@@ -262,6 +649,17 @@ components:
         lastname:
           type: string
         email:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: integer
+          format: int64
+        birthDate:
+          type: date
+        gender:
           type: string
         enabled:
           type: boolean
@@ -363,3 +761,125 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Training"
+    Course:
+      required:
+        - id
+        - day
+        - begin
+        - end
+        - price
+        - TrainingId
+        - createdAt
+        - modifiedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        day:
+          type: date
+        begin:
+          type: time  
+        end:
+          type: time  
+        price:
+          type: float  
+        TrainingId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+    NewCourse:
+      required:
+        - day
+        - begin
+        - end
+        - price
+        - TrainingId
+      properties:
+        day:
+          type: date
+        begin:
+          type: time  
+        end:
+          type: time  
+        price:
+          type: float  
+        TrainingId:
+          type: integer
+          format: int64
+    Courses:
+      type: array
+      items:
+        $ref: "#/components/schemas/Course"
+    Enrollment:
+      required:
+        - id
+        - MemberId
+        - CourseId
+        - createdAt
+        - modifiedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        MemberId:
+          type: integer
+          format: int64
+        CourseId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+    NewEnrollment:
+      required:
+        - MemberId
+        - CourseId
+      properties:
+        MemberId:
+          type: integer
+          format: int64
+        CourseId:
+          type: integer
+          format: int64
+    Enrollments:
+      type: array
+      items:
+        $ref: "#/components/schemas/Enrollment"
+    Invoice:
+      required:
+        - id
+        - price
+        - TrainingId
+        - MemberId
+        - createdAt
+        - modifiedAt
+      properties:
+        id:
+          type: integer
+          format: int64
+        price:
+          type: float
+        TrainingId:
+          type: integer
+          format: int64
+        MemberId:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+    Invoices:
+      type: array
+      items:
+        $ref: "#/components/schemas/Invoice"

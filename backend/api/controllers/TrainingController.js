@@ -3,7 +3,7 @@ const Training = require('../models/Training');
 // const Invoice = require('../models/Invoice');
 
 const TrainingController = () => {
-  // Création d'un exemple
+  // Création d'un training
   const create = async (req, res) => {
     const { body } = req;
 
@@ -19,7 +19,7 @@ const TrainingController = () => {
       return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
     }
 
-    // Création de l'exemple
+    // Création du training
     try {
       const training = await Training.create({
         name: body.name,
@@ -35,7 +35,7 @@ const TrainingController = () => {
     }
   };
 
-  // Modification d'un exemple
+  // Modification du training
   const update = async (req, res) => {
     const { id } = req.params;
     // Récupération de corps de la requête
@@ -47,23 +47,11 @@ const TrainingController = () => {
       postalCode,
     } = req.body;
 
-    // Contrôle
-    // code postal
-    // const pattern = new RegExp('^[0-9]*$');
-    // const result = pattern.test(postalCode);
-    // if (!result) {
-    //   return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
-    // }
-
-    // if (postalCode.length !== 5) {
-    //   return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
-    // }
-
     if (id && name && description && address && city && postalCode) {
-      // Recherche de l'exemple'
+      // Recherche du training
       try {
         const training = await Training.findById(id);
-        // Exemple trouvé, on sauvegarde les modifications
+        // Training trouvé, on sauvegarde les modifications
         try {
           Training.update(
             {
@@ -91,7 +79,7 @@ const TrainingController = () => {
     return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
   };
 
-  // Récupération d'un exemple
+  // Récupération du training
   const get = async (req, res) => {
     const { id } = req.params;
     try {
@@ -104,7 +92,7 @@ const TrainingController = () => {
     }
   };
 
-  // Suppression d'un exemple
+  // Suppression du training
   const remove = async (req, res) => {
     const { id } = req.params;
     try {
@@ -120,7 +108,7 @@ const TrainingController = () => {
     }
   };
 
-  // Liste des exemples
+  // Liste des trainings
   const getAll = async (req, res) => {
     try {
       const training = await Training.findAll();
