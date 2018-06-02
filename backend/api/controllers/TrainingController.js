@@ -7,6 +7,18 @@ const TrainingController = () => {
   const create = async (req, res) => {
     const { body } = req;
 
+    // Contrôle
+    // code postal
+    const pattern = new RegExp('^[0-9]*$');
+    const result = pattern.test(body.postalCode);
+    if (!result) {
+      return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+    }
+
+    if (body.postalCode.length !== 5) {
+      return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+    }
+
     // Création de l'exemple
     try {
       const training = await Training.create({
@@ -34,6 +46,18 @@ const TrainingController = () => {
       city,
       postalCode,
     } = req.body;
+
+    // Contrôle
+    // code postal
+    // const pattern = new RegExp('^[0-9]*$');
+    // const result = pattern.test(postalCode);
+    // if (!result) {
+    //   return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+    // }
+
+    // if (postalCode.length !== 5) {
+    //   return res.status(422).json({ message: 'Erreur - Le code postal est invalide.' });
+    // }
 
     if (id && name && description && address && city && postalCode) {
       // Recherche de l'exemple'
