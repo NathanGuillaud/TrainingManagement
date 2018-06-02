@@ -5,7 +5,7 @@ const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./api/swagger/swagger.yaml');
 
 // Morgan (logs)
-const morgan = require('morgan')
+const morgan = require('morgan');
 
 // Third-pary librairies
 const bodyParser = require('body-parser');
