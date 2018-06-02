@@ -65,7 +65,8 @@ const MemberController = () => {
           to: member.email,
           subject: 'Activation de votre compte',
           text: `Bonjour, 
-          Merci de bien vouloir cliquer sur ce lien pour activer votre compte (valide pendant 24h)`,
+          Merci de bien vouloir copier ce lien dans votre navigateur pour activer votre compte (valide pendant 24h)
+          <a href="${baseUrl}/public/account/verify?token=${token}&username=${member.username}">Cliquez pour activer</a>`,
         }, (errtk, restk) => {
           console.log('Mail envoyé: err:', errtk, '; res:', restk);
         });
