@@ -17,7 +17,7 @@ export class TrainingMembersComponent implements OnInit {
   currentTrainingName: string;
   // propriétés pour la pagination
   currentPage = 1;
-  itemsPerPage = 4;
+  itemsPerPage = 3;
   searchText: string;
 
   constructor(

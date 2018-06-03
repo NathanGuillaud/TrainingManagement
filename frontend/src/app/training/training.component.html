@@ -1,10 +1,16 @@
 <h1>Liste des stages
   <button class="btn btn-sm btn-success" [hidden]="!isAdmin" [routerLink]="['/trainings/training-create']">Créer</button>
 </h1>
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+
+<div class="row">
+  <div class="col-sm-3">
+    <input [(ngModel)]="searchText" placeholder="Rechercher sur la page" class="form-control">
+  </div>
+</div>
+
+<table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Nom</th>
       <th scope="col">Description</th>
       <th [hidden]="!isAdmin" scope="col">Gestion</th>
@@ -13,8 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let training of trainings">
-      <th id="trainingId{{ training.id }}" scope="row">{{ training.id }}</th>
+    <tr *ngFor="let training of trainings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: trainingsCount } | filter:{ name: searchText, description: searchText } : false">
       <td>{{training.name}}</td>
       <td>{{training.description}}</td>
       <td [hidden]="!isAdmin">
@@ -31,6 +36,11 @@
     </tr>
   </tbody>
 </table>
+
+<div class="float-right">
+  <pagination-controls (pageChange)="currentPage = $event" previousLabel="" nextLabel=""></pagination-controls>
+</div>
+
 <span>
   <button [routerLink]="['/']" class="btn btn-lg btn-success">Retour</button>
 </span>

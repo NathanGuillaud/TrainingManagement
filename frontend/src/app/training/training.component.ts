@@ -10,7 +10,6 @@ import { AlertService } from './../alert/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../model/training';
 import { Course } from '../model/course';
-import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-training',
@@ -25,9 +24,11 @@ export class TrainingComponent implements OnInit {
   currentTraining: Training = new Training(0, '', '', '', '', 0);
   // pour afficher ou non les courses
   courseEnabled = false;
-  // propriétés pour datatables
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
+  // propriétés pour la pagination
+  currentPage = 1;
+  itemsPerPage = 2;
+  searchText: string;
+  trainingsCount: number;
 
   @ViewChild('viewContainerRef', { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -41,18 +42,6 @@ export class TrainingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dtTrigger.next();
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      language: {
-        url: 'https://cdn.datatables.net/plug-ins/1.10.16/i18n/French.json'
-      },
-      lengthMenu: [[5, 10, 15, -1], [5, 10, 15, 'Tous']],
-      columnDefs: [{
-        targets: [3, 4],
-        orderable: false,
-      }]
-    };
     this.loadAllTrainings();
     this.isAdmin = this.authService.isAdmin();
   }
@@ -61,7 +50,7 @@ export class TrainingComponent implements OnInit {
     this.trainingService.getAllTrainings().subscribe(
       results => {
         this.trainings = results;
-        // this.dtTrigger.next();
+        this.trainingsCount = this.trainings.length;
       },
       error => {
         this.alertService.error(error.status, error.error.message);

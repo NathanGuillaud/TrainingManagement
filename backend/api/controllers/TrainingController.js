@@ -111,7 +111,9 @@ const TrainingController = () => {
   // Liste des trainings
   const getAll = async (req, res) => {
     try {
-      const training = await Training.findAll();
+      const training = await Training.findAll({
+        order: [['id', 'ASC']],
+      });
       return res.status(200).json(training);
     } catch (err) {
       console.log(err);
