@@ -62,6 +62,7 @@ describe('TrainingComponent', () => {
 
   it('should delete the training', () => {
     spyOn(trainingService, 'deleteTraining').and.returnValue(Observable.of(testTrainings[0]));
+    spyOn(window, 'confirm').and.returnValue(true);
     app.deleteTraining(1);
     expect(trainingService.deleteTraining).toHaveBeenCalledWith(1);
   });

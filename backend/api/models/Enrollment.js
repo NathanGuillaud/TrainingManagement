@@ -9,10 +9,10 @@ const Enrollment = sequelize.define('Enrollment', {
 }, { tableName });
 
 Enrollment.belongsTo(Course, {
-    foreignKey: {
-        allowNull: false,
-    },
-    onDelete: 'CASCADE',
+  foreignKey: {
+    allowNull: false,
+  },
+  onDelete: 'CASCADE',
 });
 
 Enrollment.belongsTo(Member);

@@ -137,37 +137,34 @@ const MemberController = () => {
         });
 
         // Utilisateur trouvé, on vérifie s'il est actif
-        if (member.enabled) {
-          // Utilisateur trouvé, déchiffrement du mot de passe
-          if (bcryptService().comparePassword(password, member.password)) {
-            const roles = [];
-            member.authorities.forEach((role) => {
-              roles.push(role.name);
-            });
-
-            // Création du token JWT
-            const token = authService().issue({
-              id: member.id,
-              username: member.username,
-              firstname: member.firstname,
-              lastname: member.lastname,
-              email: member.email,
-              authorities: roles,
-            }, '', 10800);
-
-            return res.status(200).json({ token });
-          } else {
-            return res.status(404).json({ message: 'Erreur - Login ou mot de passe erronné.' });
-          }
-        } else {
+        if (!member.enabled) {
           return res.status(403).json({ message: 'Erreur - Accès non autorisé - membre inactif.' });
+        } else if (bcryptService().comparePassword(password, member.password)) {
+          // Utilisateur trouvé, déchiffrement du mot de passe
+          const roles = [];
+          member.authorities.forEach((role) => {
+            roles.push(role.name);
+          });
+
+          // Création du token JWT
+          const token = authService().issue({
+            id: member.id,
+            username: member.username,
+            firstname: member.firstname,
+            lastname: member.lastname,
+            email: member.email,
+            authorities: roles,
+          }, '', 10800);
+          return res.status(200).json({ token });
         }
+        return res.status(404).json({ message: 'Erreur - Login ou mot de passe erronné.' });
       } catch (err) {
         console.log(err);
         return res.status(404).json({ message: 'Erreur - Membre inexistant.' });
       }
+    } else {
+      return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
     }
-    return res.status(500).json({ message: 'Erreur serveur - la requête ne peut pas être traitée.' });
   };
 
   // Validation du token JWT

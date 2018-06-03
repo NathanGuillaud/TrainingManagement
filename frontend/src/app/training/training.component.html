@@ -20,7 +20,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let training of trainings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: trainingsCount } | filter:{ name: searchText, description: searchText } : false">
-      <td>{{training.name}}</td>
+      <td id="trainingId{{training.id}}">{{training.name}}</td>
       <td>{{training.description}}</td>
       <td [hidden]="!isAdmin">
         <button class="btn btn-sm btn-danger" (click)="deleteTraining(training.id)">Supprimer</button>

@@ -13,7 +13,7 @@ const Invoice = sequelize.define('Invoice', {
 
 Invoice.belongsTo(Training, {
   foreignKey: {
-      allowNull: false,
+    allowNull: false,
   },
   onDelete: 'CASCADE',
 });
