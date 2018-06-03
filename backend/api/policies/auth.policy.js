@@ -29,7 +29,13 @@ module.exports = (req, res, next) => {
   }
 
   return JWTService().verify(tokenToVerify, '', (err, thisToken) => {
-    if (err) return res.status(401).json({ err });
+    if (err) {
+      if (err.message === 'invalid token') {
+        const messageToken = 'Token invalide - authentification rejetée';
+        return res.status(401).json({ message: messageToken });
+      }
+      return res.status(401).json({ message: err.message });
+    }
     req.token = thisToken;
     return next();
   });
