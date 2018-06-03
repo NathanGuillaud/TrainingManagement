@@ -156,6 +156,8 @@ const MemberController = () => {
             }, '', 10800);
 
             return res.status(200).json({ token });
+          } else {
+            return res.status(404).json({ message: 'Erreur - Login ou mot de passe erronné.' });
           }
         } else {
           return res.status(403).json({ message: 'Erreur - Accès non autorisé - membre inactif.' });

@@ -11,7 +11,13 @@ const Invoice = sequelize.define('Invoice', {
   },
 }, { tableName });
 
-Invoice.belongsTo(Training);
+Invoice.belongsTo(Training, {
+  foreignKey: {
+      allowNull: false,
+  },
+  onDelete: 'CASCADE',
+});
+
 Invoice.belongsTo(Member);
 
 module.exports = Invoice;

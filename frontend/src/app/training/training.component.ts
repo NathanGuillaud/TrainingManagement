@@ -26,7 +26,7 @@ export class TrainingComponent implements OnInit {
   courseEnabled = false;
   // propriétés pour la pagination
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 5;
   searchText: string;
   trainingsCount: number;
 
@@ -58,12 +58,15 @@ export class TrainingComponent implements OnInit {
   }
 
   private deleteTraining(id) {
-    this.trainingService.deleteTraining(id).subscribe(() => {
-      this.loadAllTrainings();
-    },
-      error => {
-        this.alertService.error(error.status, error.error.message);
-      });
+    if (confirm('Voulez-vous vraiment supprimer ce stage ?'
+      + ' Cette action entrainera la suppression des séances, des inscriptions et des factures liées à ce stage.')) {
+      this.trainingService.deleteTraining(id).subscribe(() => {
+        this.loadAllTrainings();
+      },
+        error => {
+          this.alertService.error(error.status, error.error.message);
+        });
+    }
   }
 
   // Call API to load courses and then add dynamic components

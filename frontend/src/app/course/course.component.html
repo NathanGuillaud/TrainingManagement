@@ -2,17 +2,17 @@
   <div class="row">
     <div class="col-md-3">
       <input class="form-control" type=date [ngClass]="{ 'has-error': f.submitted && !day.valid }" name="day" [(ngModel)]="course.day"
-        #day="ngModel" placeholder="Jour" required />
+        #day="ngModel" placeholder="Pour Safari, format : aaaa/mm/jj" required />
       <small *ngIf="f.submitted && !day.valid" class="float-left text-danger">La date de début est obligatoire</small>
     </div>
     <div class="col-md-2">
       <input class="form-control" type=time [ngClass]="{ 'has-error': f.submitted && !begin.valid }" name="begin" [(ngModel)]="course.begin"
-        #begin="ngModel" placeholder="Début" required />
+        #begin="ngModel" placeholder="Pour Safari, format : hh:mm:ss" required />
       <small *ngIf="f.submitted && !begin.valid" class="float-left text-danger">L'horaire de début est obligatoire</small>
     </div>
     <div class="col-md-2">
       <input class="form-control" type=time [ngClass]="{ 'has-error': f.submitted && !end.valid }" name="end" [(ngModel)]="course.end"
-        #end="ngModel" placeholder="Fin" required />
+        #end="ngModel" placeholder="Pour Safari, format : hh:mm:ss" required />
       <small *ngIf="f.submitted && !end.valid" class="float-left text-danger">L'horaire de fin est obligatoire</small>
     </div>
     <div class="col-md-2">

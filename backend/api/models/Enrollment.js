@@ -8,7 +8,13 @@ const tableName = 'enrollment';
 const Enrollment = sequelize.define('Enrollment', {
 }, { tableName });
 
-Enrollment.belongsTo(Course);
+Enrollment.belongsTo(Course, {
+    foreignKey: {
+        allowNull: false,
+    },
+    onDelete: 'CASCADE',
+});
+
 Enrollment.belongsTo(Member);
 
 module.exports = Enrollment;
