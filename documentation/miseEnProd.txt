@@ -1,0 +1,69 @@
+0. PRE-REQUIS (à faire 1 seule fois)
+
+Pour déployer des sous répertoires sur 2 applications différentes sur heroku
+
+git remote add backend https://git.heroku.com/ng-training-management.git
+git remote add frontend https://git.heroku.com/ng-training-app.git
+
+Avoir les fichiers Procfile à la racine du backend et du frontend.
+
+yarn build (sur frontend) pour le repertoire dist.
+
+1. POUSSER SUR GITHUB
+
+git checkout master
+git merge develop
+git push
+git tag -a 1.3.1 -m "Version 1.3.1"
+git push --tags
+(pour voir les tags : git tag)
+
+Pour se positionner sur un tag : git checkout tagname
+
+
+2. BACKEND
+
+2.0. CREER/MODIFIER LA BD SUR HEROKU (à faire normalement 1 seule fois)
+
+heroku pg:psql --app ng-training-management
+création des tables + insertions dans role + triggers
+
+2.1. DEPLOIEMENT SUR HEROKU
+
+heroku login
+
+Positionnement des variables d'environnement (à faire 1 seule fois) :
+
+Pour les lister :
+heroku config --app ng-training-management
+Pour les positionner :
+heroku config:set JWT_SECRET="eazr1qz3e2gf1esggSEG" --app ng-training-management
+heroku config:set NODE_ENV="production" --app ng-training-management
+heroku config:set PORT=80 --app ng-training-management
+heroku config:set MAIL_USER="ng.training.management@gmail.com" --app ng-training-management
+heroku config:set MAIL_PASSWORD="blablabla" --app ng-training-management
+
+git subtree push --prefix backend/ backend master
+heroku logs --tail --app ng-training-management
+
+
+3. FRONTEND
+
+3.1 DEPLOIEMENT SUR HEROKU
+
+git subtree push --prefix frontend/ frontend master
+heroku logs --tail --app ng-training-app
+
+
+4. RETOUR SUR DEVELOP
+
+git checkout develop
+
+5. ACCES AUX APPLICATIONS
+
+Backend : https://ng-training-management.herokuapp.com
+Frontend : https://ng-training-app.herokuapp.com
+
+6. (BONUS) RESTART
+
+heroku restart -a name
